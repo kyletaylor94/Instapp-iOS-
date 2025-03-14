@@ -8,11 +8,32 @@
 import SwiftUI
 
 struct AuthNavigator: View {
+    @Environment(\.dismiss) var dismiss
+    var isRegisterView: Bool
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        if !isRegisterView {
+            VStack{
+                NavigationLink {
+                    RegisterView()
+                } label: {
+                    Text("Don't you have an account? ").foregroundStyle(.white) +
+                    Text("Sign up")
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.white)
+                }
+            }
+        } else {
+            VStack{
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Already have an account? ").foregroundStyle(.white) +
+                    Text("Sign In")
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.white)
+                }
+            }
+        }
     }
 }
 
-#Preview {
-    AuthNavigator()
-}

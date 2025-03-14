@@ -7,12 +7,21 @@
 
 import SwiftUI
 
-struct AuthTextField: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+@ViewBuilder
+func createTextField(icon: String, placeholder: String, text: Binding<String>, isSecureField: Bool) -> some View {
+    HStack{
+        Image(systemName: icon)
+            .foregroundStyle(.white)
+        
+        if isSecureField {
+            SecureField("", text: text, prompt: Text(placeholder).foregroundStyle(.white))
 
-#Preview {
-    AuthTextField()
+        } else {
+            TextField("", text: text, prompt: Text(placeholder).foregroundStyle(.white))
+        }
+    }
+    .padding(.horizontal)
+    .frame(width: UIScreen.main.bounds.width - 32 ,height: 50)
+    .background(RoundedRectangle(cornerRadius: 8))
+    .foregroundStyle(.thinMaterial)
 }

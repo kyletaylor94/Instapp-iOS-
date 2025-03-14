@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
+    @State private var email: String = ""
+    @State private var password: String = ""
     var body: some View {
         ZStack{
             LinearGradient(colors: [.purple, .blue], startPoint: .top, endPoint: .bottom)
@@ -20,76 +22,37 @@ struct LoginView: View {
                     .frame(width: 300, height: 100)
                 
                 VStack{
-                    HStack{
-                        Image(systemName: "envelope")
-                            .foregroundStyle(.white)
-                        TextField("", text: .constant(""), prompt: Text("Email").foregroundStyle(.white))
+                    createTextField(icon: "envelope", placeholder: "Email", text: $email, isSecureField: false)
 
-                    }
-                    .padding(.horizontal)
-                    .frame(width: UIScreen.main.bounds.width - 32 ,height: 50)
-                    .background(RoundedRectangle(cornerRadius: 8))
-                    .foregroundStyle(.thinMaterial)
-                    
-                    HStack{
-                        Image(systemName: "lock")
-                            .foregroundStyle(.white)
-                        
-                        SecureField("", text: .constant(""), prompt: Text("Password").foregroundStyle(.white))
-                    }
-                    .padding(.horizontal)
-                    .frame(width: UIScreen.main.bounds.width - 32 ,height: 50)
-                    .background(RoundedRectangle(cornerRadius: 8))
-                    .foregroundStyle(.thinMaterial)
-                    
-                    VStack{
-                        HStack{
-                            Spacer()
-                            Button {
-                                //forgot password
-                            } label: {
-                                Text("Forgot password?")
-                            }
-                            .foregroundStyle(.white)
-                            .fontWeight(.semibold)
-                        }
-                        .padding(.trailing)
-                        .padding(.top)
-                    }
-                    
-                    VStack{
-                        Button {
-                            //sign in
-                        } label: {
-                            Capsule()
-                                .overlay {
-                                    Text("Sign In")
-                                        .foregroundStyle(.white)
-                                        .fontWeight(.semibold)
-                                }
-                        }
-                        .frame(width: UIScreen.main.bounds.width - 32, height: 50)
-                        .foregroundStyle(.ultraThinMaterial)
+                    createTextField(icon: "lock", placeholder: "Password", text: $password, isSecureField: true)
 
-                    }
-                    .padding(.top)
+                    createForgotPassword()
+                    
+                    AuthButton(void: {
+                        //sign in
+                    }, placeholder: "Sign In")
                     
                     Spacer()
                     
-                    VStack{
-                        NavigationLink {
-                            //register
-                        } label: {
-                            Text("Don't you have an account? ").foregroundStyle(.white) +
-                            Text("Sign up")
-                                .fontWeight(.semibold)
-                                .foregroundStyle(.white)
-                        }
-
-                    }
-                    
+                    AuthNavigator(isRegisterView: false)
                 }
             }
+        }
+    }
+    private func createForgotPassword() -> some View {
+        VStack{
+            HStack{
+                Spacer()
+                Button {
+                    //forgot password method
+                } label: {
+                    Text("Forgot password?")
+                }
+                .foregroundStyle(.white)
+                .fontWeight(.semibold)
+            }
+            .padding(.trailing)
+            .padding(.top)
         }
     }
 }
