@@ -12,7 +12,7 @@ struct FeedView: View {
         ScrollView(.vertical, showsIndicators: false) {
             createStories()
             
-            LazyVStack {
+            LazyVStack(spacing: 25) {
                 ForEach(0..<20) { _ in
                     createFeedCell()
                 }
@@ -33,7 +33,7 @@ struct FeedView: View {
     }
     
     private func createFeedCell() -> some View {
-        VStack{
+        VStack(spacing: 5){
             HStack(alignment: .center) {
                 Circle()
                     .frame(height: 30)
@@ -48,16 +48,18 @@ struct FeedView: View {
                 .frame(height: 350)
                 .frame(maxWidth: .infinity)
             
-            HStack(spacing: 20) {
-                HStack{
+            HStack(spacing: 10) {
+                HStack(spacing: 0) {
                     Image(systemName: "heart")
                     Text("32")
+                        .font(.subheadline)
                 }
                 .font(.title2)
 
-                HStack{
+                HStack(spacing: 0){
                     Image(systemName: "bubble")
                     Text("5")
+                        .font(.subheadline)
                 }
                 .font(.title2)
                 
@@ -79,7 +81,7 @@ struct FeedView: View {
                 }
                 Spacer()
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 10)
         }
     }
 }
