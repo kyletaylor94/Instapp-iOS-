@@ -12,7 +12,7 @@ struct FeedView: View {
         ScrollView(.vertical, showsIndicators: false) {
             createStories()
             
-            LazyVStack(spacing: 25) {
+            LazyVStack(spacing: 35) {
                 ForEach(0..<20) { _ in
                     createFeedCell()
                 }
