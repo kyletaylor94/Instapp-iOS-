@@ -12,6 +12,7 @@ struct ContentView: View {
         NavigationStack{
             CustomTabView()
         }
+        //.toolbarVisibility(.visible, for: .tabBar)
     }
 }
 

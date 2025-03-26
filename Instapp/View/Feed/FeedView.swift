@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct FeedView: View {
+    @State private var showComments: Bool = false
+    @State private var showWhoLikesPost: Bool = false
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
+        VStack{
             createStories()
-            
-            LazyVStack(spacing: 35) {
-                ForEach(0..<20) { _ in
-                    createFeedCell()
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVStack(spacing: 35) {
+                    ForEach(0..<20) { _ in
+                        createFeedCell()
+                    }
                 }
             }
+            .padding(.top)
         }
-        .padding(.top)
     }
     private func createStories() -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -46,7 +49,7 @@ struct FeedView: View {
     }
     
     private func createFeedCell() -> some View {
-        VStack(spacing: 5){
+        VStack(spacing: 5) {
             HStack(alignment: .center) {
                 Circle()
                     .frame(height: 30)
@@ -69,16 +72,53 @@ struct FeedView: View {
                 }
                 .font(.title2)
 
-                HStack(spacing: 0){
-                    Image(systemName: "bubble")
-                    Text("5")
-                        .font(.subheadline)
+                Button {
+                    showComments.toggle()
+                } label: {
+                    HStack(spacing: 0) {
+                        Image(systemName: "bubble")
+                        Text("5")
+                            .font(.subheadline)
+                    }
+                    .font(.title2)
                 }
-                .font(.title2)
+                .sheet(isPresented: $showComments) {
+                    CommentSheetView()
+                        .padding(.top)
+                        .presentationCornerRadius(12)
+                        .presentationDragIndicator(.visible)
+                        .presentationDetents([.height(650)])
+                }
+                .foregroundStyle(.primary)
+
                 
                 Spacer()
             }
             .padding(5)
+            
+            HStack(spacing: 5) {
+                Text("kyle ").fontWeight(.semibold) +
+                Text("and")
+                
+                Button(action: {
+                    showWhoLikesPost.toggle()
+                }, label: {
+                    Text("other people ").fontWeight(.semibold) +
+                    Text("likes this")
+                })
+                .foregroundStyle(.primary)
+
+                Spacer()
+            }
+            .padding(.horizontal, 10)
+            .sheet(isPresented: $showWhoLikesPost) {
+                WhoLikesPostSheetView()
+                    .padding(.top)
+                    .presentationCornerRadius(12)
+                    .presentationDragIndicator(.visible)
+                    .presentationDetents([.height(650)])
+            }
+
             
             HStack{
                 VStack(alignment: .leading) {

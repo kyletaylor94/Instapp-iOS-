@@ -6,19 +6,22 @@
 //
 
 import SwiftUI
-
-//FIXME: - Maybe should add dependency -> swiftuiex to create searchbar!
+import SwiftUIX
 
 struct WhoLikesPostSheetView: View {
     var body: some View {
         VStack{
-            Text("likes")
+            Text("Likes")
                 .bold()
             
             Divider()
             
             ScrollView(.vertical, showsIndicators: true) {
                 LazyVStack(spacing: 20) {
+                    SearchBar("Search...", text: .constant(""), isEditing: .constant(false))
+                        .showsCancelButton(false)
+                               .onCancel { print("Canceled!") }
+                    
                     ForEach(0..<20) { index in
                         HStack{
                             Circle()
@@ -30,7 +33,7 @@ struct WhoLikesPostSheetView: View {
                             
                             Spacer()
                             
-                            createFollowOrFollowingButton(bool: index == 0 ? true : false)
+                            createFollowOrFollowingButton(following: index == 0 ? true : false)
                             
                         }
                         .padding(.horizontal)
@@ -41,8 +44,8 @@ struct WhoLikesPostSheetView: View {
     }
     
     @ViewBuilder
-    private func createFollowOrFollowingButton(bool: Bool) -> some View {
-        if bool {
+    private func createFollowOrFollowingButton(following: Bool) -> some View {
+        if following {
             Button {
                 //
             } label: {

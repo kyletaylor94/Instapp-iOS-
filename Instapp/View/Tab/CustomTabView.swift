@@ -19,8 +19,8 @@ enum TabItem: String, CaseIterable, Identifiable {
         case .feed: return AnyView(FeedView())
         case .search: return AnyView(SearchView())
         case .add: return AnyView(EmptyView())
-        case .notifications: return AnyView(EmptyView())
-        case .profile: return AnyView(EmptyView())
+        case .notifications: return AnyView(NotificationsView())
+        case .profile: return AnyView(ProfileView())
         }
     }
     
@@ -28,6 +28,8 @@ enum TabItem: String, CaseIterable, Identifiable {
 }
 
 struct CustomTabView: View {
+    
+    init() { UITabBar.appearance().isTranslucent = false }
     var body: some View {
         TabView {
             ForEach(TabItem.allCases) { tab in
@@ -36,6 +38,7 @@ struct CustomTabView: View {
                 }
             }
         }
+        .tint(.black)
     }
 }
 

@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		98C68DF42D93F2C7002C781A /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68DF32D93F2C7002C781A /* SwiftUIX */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		9880DCD42D7F619B00386C56 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98C68DF42D93F2C7002C781A /* SwiftUIX in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = Instapp;
 			packageProductDependencies = (
+				98C68DF32D93F2C7002C781A /* SwiftUIX */,
 			);
 			productName = Instapp;
 			productReference = 9880DCC32D7F619900386C56 /* Instapp.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 9880DCBA2D7F619900386C56;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				98C68DF22D93F2C7002C781A /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9880DCC42D7F619900386C56 /* Products */;
 			projectDirPath = "";
@@ -558,6 +567,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		98C68DF22D93F2C7002C781A /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		98C68DF32D93F2C7002C781A /* SwiftUIX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98C68DF22D93F2C7002C781A /* XCRemoteSwiftPackageReference "SwiftUIX" */;
+			productName = SwiftUIX;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9880DCBB2D7F619900386C56 /* Project object */;
 }
