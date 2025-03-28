@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ExyteMediaPicker
 
 enum UploadType: String, Identifiable ,CaseIterable {
     case post = "Post"
@@ -17,16 +18,58 @@ enum UploadType: String, Identifiable ,CaseIterable {
 struct UploadView: View {
     @Environment(\.dismiss) var dismiss
     @State private var selectedType: UploadType = .post
+    @State private var isPresented: Bool = false
+    @State private var selectedMedia: [Media] = []
     var body: some View {
         ZStack{
             Color.black.ignoresSafeArea()
             VStack{
-                Rectangle()
-                    .foregroundStyle(.gray)
-                    .frame(height: 520)
-                    .maxWidth(.infinity)
+                HStack{
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(.white)
+                            .font(.title3)
+                    }
+                    
+                    Spacer()
+
+                    
+                    Text("New post")
+                        .foregroundStyle(.white)
+                    
+                    Spacer()
+
+                    Button {
+                        //next
+                    } label: {
+                        Text("Next")
+                            .foregroundStyle(.blue)
+                    }
+                    
+                }
+                .padding(.horizontal)
                 
-                Spacer()
+                MediaPicker(
+                    isPresented: $isPresented,
+                    onChange: { selectedMedia = $0 },
+                    albumSelectionBuilder: { defaultHeaderView, albumSelectionView, isInFullscreen in
+                        VStack {
+                            if !isInFullscreen {
+                                defaultHeaderView
+                            }
+                            albumSelectionView
+                            
+                            Spacer()
+                            
+                        }
+                        .background(Color.black)
+                    }
+                )
+                //.frame(height: 650)
+                
+            //    Spacer()
                 
                 VStack {
                     Capsule()
@@ -47,38 +90,11 @@ struct UploadView: View {
                 }
                 
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        //dismiss
-                    } label: {
-                        Image(systemName: "xmark")
-                            .foregroundStyle(.white)
-                            .font(.title3)
-                    }
-                }
-                
-                ToolbarItem(placement: .principal) {
-                    Text("New post")
-                        .foregroundStyle(.white)
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        //next
-                    } label: {
-                        Text("Next")
-                            .foregroundStyle(.blue)
-                    }
-
-                }
-            }
+            .navigationBarBackButtonHidden()
         }
     }
 }
 
 #Preview {
-    NavigationStack {
-        UploadView()
-    }
+    UploadView()
 }

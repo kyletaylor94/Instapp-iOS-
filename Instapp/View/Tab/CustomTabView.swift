@@ -10,35 +10,61 @@ import SwiftUI
 enum TabItem: String, CaseIterable, Identifiable {
     case feed = "house"
     case search = "magnifyingglass"
-    case add = "plus"
+    case upload = "plus"
     case notifications = "bell"
     case profile = "person"
-    
-    var view: AnyView {
-        switch self {
-        case .feed: return AnyView(FeedView())
-        case .search: return AnyView(SearchView())
-        case .add: return AnyView(EmptyView())
-        case .notifications: return AnyView(NotificationsView())
-        case .profile: return AnyView(ProfileView())
-        }
-    }
-    
+        
     var id: String { return self.rawValue }
 }
 
 struct CustomTabView: View {
-    
-    init() { UITabBar.appearance().isTranslucent = false }
+    @State private var showUploadView = false
+    @State private var selectedTab: TabItem = .feed
+
     var body: some View {
-        TabView {
-            ForEach(TabItem.allCases) { tab in
-                Tab("", systemImage: tab.rawValue) {
-                    tab.view
+        ZStack {
+            VStack {
+                switch selectedTab {
+                case .feed:
+                    FeedView()
+                case .search:
+                    SearchView()
+                case .upload:
+                    EmptyView()
+                case .notifications:
+                    NotificationsView()
+                case .profile:
+                    ProfileView()
                 }
             }
+            .safeAreaInset(edge: .bottom) {
+                Rectangle()
+                    .overlay {
+                        HStack(alignment: .top, spacing: 50) {
+                            ForEach(TabItem.allCases) { tab in
+                                Button {
+                                    if tab == .upload {
+                                        showUploadView = true
+                                    } else {
+                                        selectedTab = tab
+                                    }
+                                } label: {
+                                    Image(systemName: tab.rawValue)
+                                        .font(.title2)
+                                        .foregroundStyle(selectedTab == tab ? .blue : .gray)
+                                        .offset(y: -10)
+                                }
+                            }
+                        }
+                    }
+                    .frame(height: 70)
+                    .offset(y: 35)
+                    .foregroundStyle(.white)
+            }
         }
-        .tint(.black)
+        .fullScreenCover(isPresented: $showUploadView) {
+            UploadView()
+        }
     }
 }
 
