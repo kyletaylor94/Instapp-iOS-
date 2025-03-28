@@ -1,6 +1,24 @@
 {
-  "originHash" : "5fe01254ca865cc61117a15dc5fb508ee9ae581d9a9256046c014542499c7560",
+  "originHash" : "0ba5644e2a1972da70622b71980302c495edda3be0c77d5aafaba36f6fc5d6c6",
   "pins" : [
+    {
+      "identity" : "anchoredpopup",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/exyte/AnchoredPopup.git",
+      "state" : {
+        "revision" : "29fd1404c093cda93d949763ee711d1a892069ea",
+        "version" : "1.0.5"
+      }
+    },
+    {
+      "identity" : "mediapicker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/exyte/mediapicker",
+      "state" : {
+        "revision" : "7067c34b6460890bdeb43ba1ab01faf901860b3e",
+        "version" : "3.1.2"
+      }
+    },
     {
       "identity" : "swiftuix",
       "kind" : "remoteSourceControl",

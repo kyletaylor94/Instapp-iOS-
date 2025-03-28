@@ -8,17 +8,45 @@
 import SwiftUI
 
 struct ProfileView: View {
+    let columns = [
+        GridItem(.flexible(), spacing: 3),
+        GridItem(.flexible(), spacing: 3),
+        GridItem(.flexible(), spacing: 3)
+    ]
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack{
+            VStack(spacing: 20) {
                 createProfileImageAndStats()
+                
+                VStack{
+                    Button {
+                        //edit profile following
+                    } label: {
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke()
+                            .foregroundStyle(.black)
+                            .overlay {
+                                Text("Edit profile")
+                                    .foregroundStyle(.black)
+                            }
+                            
+                    }
+                    .frame(width: UIScreen.main.bounds.width - 32, height: 30)
+
+                }
+                createCurrentUserImages()
             }
         }
     }
     private func createProfileImageAndStats() -> some View {
         HStack{
-            Circle()
-                .frame(height: 70)
+            VStack(alignment: .leading) {
+                Circle()
+                    .frame(height: 70)
+                Text("user")
+                    .frame(width: 70, alignment: .center)
+            }
             
             Spacer()
             
@@ -34,13 +62,22 @@ struct ProfileView: View {
         }
         .padding()
     }
-    
     private func createStat(value: Int, placeholder: String) -> some View {
         VStack(alignment: .leading) {
             Text("\(value)")
                 .bold()
             
             Text(placeholder)
+        }
+    }
+    
+    private func createCurrentUserImages() -> some View {
+        LazyVGrid(columns: columns, spacing: 3) {
+            ForEach(0..<12, id: \.self) { _ in
+                Rectangle()
+                    .foregroundStyle(.blue)
+                    .frame(height: 200)
+            }
         }
     }
 }

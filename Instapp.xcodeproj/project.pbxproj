@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		98C68DF42D93F2C7002C781A /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68DF32D93F2C7002C781A /* SwiftUIX */; };
+		98C68DFE2D9691F8002C781A /* ExyteMediaPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68DFD2D9691F8002C781A /* ExyteMediaPicker */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98C68DF42D93F2C7002C781A /* SwiftUIX in Frameworks */,
+				98C68DFE2D9691F8002C781A /* ExyteMediaPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +120,7 @@
 			name = Instapp;
 			packageProductDependencies = (
 				98C68DF32D93F2C7002C781A /* SwiftUIX */,
+				98C68DFD2D9691F8002C781A /* ExyteMediaPicker */,
 			);
 			productName = Instapp;
 			productReference = 9880DCC32D7F619900386C56 /* Instapp.app */;
@@ -203,6 +206,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				98C68DF22D93F2C7002C781A /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+				98C68DFC2D9691F8002C781A /* XCRemoteSwiftPackageReference "mediapicker" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9880DCC42D7F619900386C56 /* Products */;
@@ -577,6 +581,14 @@
 				minimumVersion = 0.2.3;
 			};
 		};
+		98C68DFC2D9691F8002C781A /* XCRemoteSwiftPackageReference "mediapicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/mediapicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -584,6 +596,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 98C68DF22D93F2C7002C781A /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
+		};
+		98C68DFD2D9691F8002C781A /* ExyteMediaPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98C68DFC2D9691F8002C781A /* XCRemoteSwiftPackageReference "mediapicker" */;
+			productName = ExyteMediaPicker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
