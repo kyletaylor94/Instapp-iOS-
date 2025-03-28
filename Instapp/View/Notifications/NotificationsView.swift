@@ -21,44 +21,16 @@ struct NotificationsView: View {
                         
                         Spacer()
                         
-                        createFollowOrFollowingButton(following: index == 2 ? true : false)
+                        createFollowOrFollowingButton(following: index == 2 ? true: false) {
+                            //task
+                        }
 
                     }
                     .padding(.horizontal, 5)
                 }
             }
             .multilineTextAlignment(.leading)
-
-        }
-    }
-    @ViewBuilder
-    private func createFollowOrFollowingButton(following: Bool) -> some View {
-        if following {
-            Button {
-                //
-            } label: {
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(style: StrokeStyle())
-                
-            }
-            .frame(width: 100, height: 30)
-            .foregroundStyle(.black)
-            .overlay {
-                Text("Following")
-            }
-        } else {
-            Button {
-                //
-            } label: {
-                RoundedRectangle(cornerRadius: 8)
-            }
-            .frame(width: 100, height: 30)
-            .foregroundStyle(.blue)
-            .overlay {
-                Text("Follow")
-                    .foregroundStyle(.white)
-                    .bold()
-            }
+            .padding(.horizontal)
         }
     }
 }

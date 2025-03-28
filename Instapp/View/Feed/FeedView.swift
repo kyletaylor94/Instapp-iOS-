@@ -13,6 +13,7 @@ struct FeedView: View {
     var body: some View {
         VStack{
             createStories()
+            
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(spacing: 35) {
                     ForEach(0..<20) { _ in
@@ -45,7 +46,7 @@ struct FeedView: View {
             }
             .frame(height: 110)
         }
-        .padding()
+        .padding(.leading, 5)
     }
     
     private func createFeedCell() -> some View {
@@ -56,6 +57,7 @@ struct FeedView: View {
                 
                 Text("mockuser")
                     .font(.headline)
+                
                 Spacer()
             }
             .padding(5)

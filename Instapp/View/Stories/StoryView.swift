@@ -21,11 +21,13 @@ struct StoryView: View {
                     .frame(width: 100)
                     .maxHeight(.infinity)
                     .padding(.top, 40)
+                
                 Spacer()
             }
             
             HStack{
                 Spacer()
+                
                 Rectangle()
                     .foregroundStyle(.red)
                     .frame(width: 100)
@@ -38,6 +40,7 @@ struct StoryView: View {
                     Circle()
                         .frame(height: 30)
                         .foregroundStyle(.gray)
+                    
                     Text("username")
                         .foregroundStyle(.white)
                     
@@ -56,6 +59,9 @@ struct StoryView: View {
                     
                 }
                 .padding(.horizontal)
+               
+                //implement here a timer for pictures
+                
                 Spacer()
             }
         }

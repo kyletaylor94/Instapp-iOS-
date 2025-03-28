@@ -20,56 +20,29 @@ struct WhoLikesPostSheetView: View {
                 LazyVStack(spacing: 20) {
                     SearchBar("Search...", text: .constant(""), isEditing: .constant(false))
                         .showsCancelButton(false)
-                               .onCancel { print("Canceled!") }
+                        .onCancel { print("Canceled!") }
+                        .padding(.horizontal, 5)
                     
                     ForEach(0..<20) { index in
                         HStack{
                             Circle()
                                 .frame(height: 50)
+                            
                             VStack{
                                 Text("mockuser")
                                 Text("real name")
                             }
                             
                             Spacer()
-                            
-                            createFollowOrFollowingButton(following: index == 0 ? true : false)
+                                                        
+                            createFollowOrFollowingButton(following: index == 0 ? true: false) {
+                                //task
+                            }
                             
                         }
                         .padding(.horizontal)
                     }
                 }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private func createFollowOrFollowingButton(following: Bool) -> some View {
-        if following {
-            Button {
-                //
-            } label: {
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(style: StrokeStyle())
-                
-            }
-            .frame(width: 100, height: 30)
-            .foregroundStyle(.black)
-            .overlay {
-                Text("Following")
-            }
-        } else {
-            Button {
-                //
-            } label: {
-                RoundedRectangle(cornerRadius: 8)
-            }
-            .frame(width: 100, height: 30)
-            .foregroundStyle(.blue)
-            .overlay {
-                Text("Follow")
-                    .foregroundStyle(.white)
-                    .bold()
             }
         }
     }
@@ -80,3 +53,4 @@ struct WhoLikesPostSheetView: View {
         WhoLikesPostSheetView()
     }
 }
+
