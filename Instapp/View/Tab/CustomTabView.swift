@@ -8,11 +8,11 @@
 import SwiftUI
 
 enum TabItem: String, CaseIterable, Identifiable {
-    case feed = "house"
+    case feed = "house.fill"
     case search = "magnifyingglass"
     case upload = "plus"
-    case notifications = "bell"
-    case profile = "person"
+    case notifications = "bell.fill"
+    case profile = "person.fill"
         
     var id: String { return self.rawValue }
 }
@@ -27,12 +27,16 @@ struct CustomTabView: View {
                 switch selectedTab {
                 case .feed:
                     FeedView()
+                    
                 case .search:
                     SearchView()
+                    
                 case .upload:
                     EmptyView()
+                    
                 case .notifications:
                     NotificationsView()
+                    
                 case .profile:
                     ProfileView()
                 }

@@ -28,20 +28,27 @@ struct FeedView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
                 ForEach(0..<20) { index in
-                    VStack{
-                        Circle()
-                            .stroke(lineWidth: 3)
-                            .fill(
-                                LinearGradient(colors: [.orange, .yellow,.pink, .purple], startPoint: .bottomLeading, endPoint: .topTrailing)
-                            )
-                            .frame(height: 70)
-                            .overlay {
-                                Circle()
-                                    .frame(height: 62)
-                            }
-                        
-                        Text(index == 0 ? "Your story" : "mockuser")
+                    NavigationLink {
+                        StoryView()
+                    } label: {
+                        VStack{
+                            Circle()
+                                .stroke(lineWidth: 3)
+                                .fill(
+                                    LinearGradient(colors: [.orange, .yellow,.pink, .purple], startPoint: .bottomLeading, endPoint: .topTrailing)
+                                )
+                                .frame(height: 70)
+                                .overlay {
+                                    Circle()
+                                        .frame(height: 62)
+                                        .foregroundStyle(.gray)
+                                }
+                            
+                            Text(index == 0 ? "Your story" : "mockuser")
+                        }
                     }
+                    .foregroundStyle(.primary)
+
                 }
             }
             .frame(height: 110)

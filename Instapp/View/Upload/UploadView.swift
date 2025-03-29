@@ -24,32 +24,7 @@ struct UploadView: View {
         ZStack{
             Color.black.ignoresSafeArea()
             VStack{
-                HStack{
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .foregroundStyle(.white)
-                            .font(.title3)
-                    }
-                    
-                    Spacer()
-
-                    
-                    Text("New post")
-                        .foregroundStyle(.white)
-                    
-                    Spacer()
-
-                    Button {
-                        //next
-                    } label: {
-                        Text("Next")
-                            .foregroundStyle(.blue)
-                    }
-                    
-                }
-                .padding(.horizontal)
+                createUploadNavbar()
                 
                 MediaPicker(
                     isPresented: $isPresented,
@@ -67,30 +42,56 @@ struct UploadView: View {
                         .background(Color.black)
                     }
                 )
-                //.frame(height: 650)
-                
-            //    Spacer()
-                
-                VStack {
-                    Capsule()
-                        .foregroundStyle(.ultraThinMaterial)
-                        .frame(width: UIScreen.main.bounds.width - 122 , height: 30, alignment: .center)
-                        .overlay {
-                            HStack(spacing: 30) {
-                                ForEach(UploadType.allCases) { type in
-                                    Button {
-                                        selectedType = type
-                                    } label: {
-                                        Text(type.rawValue)
-                                            .foregroundStyle(selectedType == type ? .white: .gray)
-                                    }
-                                }
-                            }
-                        }
-                }
-                
+                postTypeSelector()
             }
             .navigationBarBackButtonHidden()
+        }
+    }
+    private func createUploadNavbar() -> some View {
+        HStack{
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .foregroundStyle(.white)
+                    .font(.title3)
+            }
+            
+            Spacer()
+
+            
+            Text("New post")
+                .foregroundStyle(.white)
+            
+            Spacer()
+
+            Button {
+                //next
+            } label: {
+                Text("Next")
+                    .foregroundStyle(.blue)
+            }
+            
+        }
+        .padding(.horizontal)
+    }
+    private func postTypeSelector() -> some View {
+        VStack {
+            Capsule()
+                .foregroundStyle(.ultraThinMaterial)
+                .frame(width: UIScreen.main.bounds.width - 122 , height: 30, alignment: .center)
+                .overlay {
+                    HStack(spacing: 30) {
+                        ForEach(UploadType.allCases) { type in
+                            Button {
+                                selectedType = type
+                            } label: {
+                                Text(type.rawValue)
+                                    .foregroundStyle(selectedType == type ? .white: .gray)
+                            }
+                        }
+                    }
+                }
         }
     }
 }
