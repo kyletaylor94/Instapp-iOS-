@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ImageViewer
 
 struct ProfileView: View {
     let columns = [
@@ -13,6 +14,11 @@ struct ProfileView: View {
         GridItem(.flexible(), spacing: 3),
         GridItem(.flexible(), spacing: 3)
     ]
+    
+    @State private var isImagepresented = false
+    @State private var selectedImage: Image?
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -30,13 +36,16 @@ struct ProfileView: View {
                                 Text("Edit profile")
                                     .foregroundStyle(.black)
                             }
-                            
+                        
                     }
                     .frame(width: UIScreen.main.bounds.width - 32, height: 30)
-
+                    
                 }
                 createCurrentUserImages()
             }
+        }
+        .fullScreenCover(isPresented: $isImagepresented) {
+            ImageViewer(image: $selectedImage, viewerShown: self.$isImagepresented)
         }
     }
     private func createProfileImageAndStats() -> some View {
@@ -74,9 +83,15 @@ struct ProfileView: View {
     private func createCurrentUserImages() -> some View {
         LazyVGrid(columns: columns, spacing: 3) {
             ForEach(0..<12, id: \.self) { _ in
-                Rectangle()
-                    .foregroundStyle(.blue)
-                    .frame(height: 200)
+                Button {
+                    selectedImage = Image(.mockPhoto)
+                    isImagepresented.toggle()
+                } label: {
+                    Image(.mockPhoto)
+                        .resizable()
+                        .clipShape(Rectangle())
+                        .frame(height: 200)
+                }
             }
         }
     }

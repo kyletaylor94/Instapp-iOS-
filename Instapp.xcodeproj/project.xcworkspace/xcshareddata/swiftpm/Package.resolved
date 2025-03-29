@@ -1,5 +1,5 @@
 {
-  "originHash" : "0ba5644e2a1972da70622b71980302c495edda3be0c77d5aafaba36f6fc5d6c6",
+  "originHash" : "cf0248d6f383f9645d229aa0b66c60eca29a3f269ef0ffd3124e7657fe7f7991",
   "pins" : [
     {
       "identity" : "anchoredpopup",
@@ -20,12 +20,30 @@
       }
     },
     {
+      "identity" : "swiftui-image-viewer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Jake-Short/swiftui-image-viewer",
+      "state" : {
+        "revision" : "f61f298c0100c81dfb0c7908091e68aad12a892c",
+        "version" : "2.3.1"
+      }
+    },
+    {
       "identity" : "swiftuix",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftUIX/SwiftUIX",
       "state" : {
         "revision" : "e984fd2e08140ad5a95d084be38fe02b774bc15d",
         "version" : "0.2.3"
+      }
+    },
+    {
+      "identity" : "url-image",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dmytro-anokhin/url-image.git",
+      "state" : {
+        "revision" : "ccab89ad1cedb04f25dd4df1776dd8c8583b914a",
+        "version" : "2.2.5"
       }
     }
   ],

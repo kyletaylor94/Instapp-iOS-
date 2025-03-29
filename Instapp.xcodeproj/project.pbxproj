@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		98C68DF42D93F2C7002C781A /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68DF32D93F2C7002C781A /* SwiftUIX */; };
 		98C68DFE2D9691F8002C781A /* ExyteMediaPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68DFD2D9691F8002C781A /* ExyteMediaPicker */; };
+		98C68E0F2D9827F1002C781A /* ImageViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68E0E2D9827F1002C781A /* ImageViewer */; };
+		98C68E112D9827F1002C781A /* ImageViewerRemote in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68E102D9827F1002C781A /* ImageViewerRemote */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				98C68DF42D93F2C7002C781A /* SwiftUIX in Frameworks */,
+				98C68E0F2D9827F1002C781A /* ImageViewer in Frameworks */,
+				98C68E112D9827F1002C781A /* ImageViewerRemote in Frameworks */,
 				98C68DFE2D9691F8002C781A /* ExyteMediaPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -121,6 +125,8 @@
 			packageProductDependencies = (
 				98C68DF32D93F2C7002C781A /* SwiftUIX */,
 				98C68DFD2D9691F8002C781A /* ExyteMediaPicker */,
+				98C68E0E2D9827F1002C781A /* ImageViewer */,
+				98C68E102D9827F1002C781A /* ImageViewerRemote */,
 			);
 			productName = Instapp;
 			productReference = 9880DCC32D7F619900386C56 /* Instapp.app */;
@@ -207,6 +213,7 @@
 			packageReferences = (
 				98C68DF22D93F2C7002C781A /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				98C68DFC2D9691F8002C781A /* XCRemoteSwiftPackageReference "mediapicker" */,
+				98C68E0D2D9827F1002C781A /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9880DCC42D7F619900386C56 /* Products */;
@@ -599,6 +606,14 @@
 				minimumVersion = 3.1.2;
 			};
 		};
+		98C68E0D2D9827F1002C781A /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Jake-Short/swiftui-image-viewer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -611,6 +626,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 98C68DFC2D9691F8002C781A /* XCRemoteSwiftPackageReference "mediapicker" */;
 			productName = ExyteMediaPicker;
+		};
+		98C68E0E2D9827F1002C781A /* ImageViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98C68E0D2D9827F1002C781A /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */;
+			productName = ImageViewer;
+		};
+		98C68E102D9827F1002C781A /* ImageViewerRemote */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98C68E0D2D9827F1002C781A /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */;
+			productName = ImageViewerRemote;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
