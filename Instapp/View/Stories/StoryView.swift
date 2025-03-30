@@ -27,8 +27,6 @@ struct StoryView: View {
                     .frame(width: geo.size.width, height: nil, alignment: .center)
                 
                 VStack{
-                    createStoryNavBar()
-                    
                     HStack(alignment: .center, spacing: 4) {
                         ForEach(imagesNames.indices, id: \.self) { x in
                             loadingRectangle(progress: min( max( (CGFloat(self.storyTimer.progress) - CGFloat(x)), 0.0) , 1.0) )
@@ -36,7 +34,11 @@ struct StoryView: View {
                                 .animation(.linear, value: self.storyTimer.progress)
                         }
                     }
-                    .padding()
+                    .padding(.horizontal, 10)
+                    .padding(.bottom, 5)
+                    
+                    createStoryNavBar()
+                    
                 }
                 
                 HStack(alignment: .center, spacing: 0) {
