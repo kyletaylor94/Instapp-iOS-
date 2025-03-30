@@ -41,8 +41,10 @@ struct StoryView: View {
                     
                 }
                 
-                HStack(alignment: .center, spacing: 0) {
+                HStack{
                     stepperButton { self.storyTimer.advance(by: -1) }
+                    
+                    Spacer()
                     
                     stepperButton { self.storyTimer.advance(by: 1) }
 
@@ -90,6 +92,8 @@ struct StoryView: View {
                     .foregroundColor(.clear)
             }
             .padding(.top, 80)
+            .frame(maxHeight: .infinity)
+            .frame(width: 120)
     }
     
     @ViewBuilder
