@@ -10,7 +10,7 @@ import SwiftUI
 struct StoryView: View {
     @ObservedObject var storyTimer: StoryTimer = StoryTimer(items: 3, interval: 3.0)
     @Environment(\.dismiss) var dismiss
-
+    
     private var imagesNames: [String] = [
         "mockPhoto",
         "mockPhoto2",
@@ -47,7 +47,7 @@ struct StoryView: View {
                     Spacer()
                     
                     stepperButton { self.storyTimer.advance(by: 1) }
-
+                    
                 }
             }
             .navigationBarBackButtonHidden()
@@ -85,15 +85,15 @@ struct StoryView: View {
     
     @ViewBuilder
     private func stepperButton(task: @escaping () -> ()) -> some View {
-            Button {
-                task()
-            } label: {
-                Rectangle()
-                    .foregroundColor(.clear)
-            }
-            .padding(.top, 80)
-            .frame(maxHeight: .infinity)
-            .frame(width: 120)
+        Button {
+            task()
+        } label: {
+            Rectangle()
+                .foregroundColor(.clear)
+        }
+        .padding(.top, 80)
+        .frame(maxHeight: .infinity)
+        .frame(width: 120)
     }
     
     @ViewBuilder
@@ -102,7 +102,7 @@ struct StoryView: View {
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 5)
                     .foregroundStyle(.white.opacity(0.3))
-                    
+                
                 RoundedRectangle(cornerRadius: 5)
                     .foregroundStyle(.white.opacity(0.9))
                     .frame(width: geo.size.width * progress, height: nil, alignment: .leading)

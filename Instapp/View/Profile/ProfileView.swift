@@ -17,31 +17,54 @@ struct ProfileView: View {
     
     @State private var isImagepresented = false
     @State private var selectedImage: Image?
+    @State private var selectedImageTwo: Image?
+    @State private var customViewer: Bool = false
     
+        
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 20) {
-                createProfileImageAndStats()
-                
-                VStack{
-                    Button {
-                        //edit profile following
-                    } label: {
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke()
-                            .foregroundStyle(.black)
-                            .overlay {
-                                Text("Edit profile")
-                                    .foregroundStyle(.black)
-                            }
-                        
-                    }
-                    .frame(width: UIScreen.main.bounds.width - 32, height: 30)
+        ZStack{
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 20) {
+                    createProfileImageAndStats()
                     
+                    createEditButton { /*edit profile*/ }
+                    
+                    createCurrentUserImages()
                 }
-                createCurrentUserImages()
+            }
+            .blur(radius: customViewer ? 15 : 0)
+            
+            
+            if let image = selectedImageTwo {
+                VStack{
+                    HStack{
+                        
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                customViewer = false
+                                selectedImageTwo = nil
+                            }
+                        } label: {
+                            Image(systemName: "xmark")
+                                .font(.title2)
+                                .foregroundStyle(.black)
+                        }
+
+                    }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.trailing)
+                    Spacer()
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 230)
+                        .clipShape(Circle())
+                    
+                    Spacer()
+
+                }
             }
         }
         .fullScreenCover(isPresented: $isImagepresented) {
@@ -50,9 +73,23 @@ struct ProfileView: View {
     }
     private func createProfileImageAndStats() -> some View {
         HStack{
-            VStack(alignment: .leading) {
-                Circle()
-                    .frame(height: 70)
+            VStack(alignment: .center) {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        selectedImageTwo = Image(.mockPhoto)
+                        customViewer.toggle()
+                    }
+                   
+                } label: {
+                    Image(.mockPhoto)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 70)
+                        .clipShape(Circle())
+                }
+
+
+                
                 Text("user")
                     .frame(width: 70, alignment: .center)
             }
@@ -69,7 +106,7 @@ struct ProfileView: View {
             
             Spacer()
         }
-        .padding()
+        .padding(.horizontal)
     }
     private func createStat(value: Int, placeholder: String) -> some View {
         VStack(alignment: .leading) {
@@ -77,6 +114,23 @@ struct ProfileView: View {
                 .bold()
             
             Text(placeholder)
+        }
+    }
+    
+    private func createEditButton(task: @escaping () ->()) -> some View {
+        VStack{
+            Button {
+                task()
+            } label: {
+                RoundedRectangle(cornerRadius: 4)
+                    .stroke()
+                    .foregroundStyle(.black)
+                    .overlay {
+                        Text("Edit profile")
+                            .foregroundStyle(.black)
+                    }
+            }
+            .frame(width: UIScreen.main.bounds.width - 32, height: 30)
         }
     }
     
@@ -99,4 +153,48 @@ struct ProfileView: View {
 
 #Preview {
     ProfileView()
+}
+
+
+
+
+struct CustomPictureView: View {
+    @Binding var selectedImage: Image?
+    @Environment(\.dismiss) var dismiss
+    var body: some View {
+        ZStack(alignment: .topTrailing) {
+            Rectangle()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .foregroundStyle(.ultraThinMaterial)
+                .ignoresSafeArea()
+
+            VStack{
+                HStack{
+                    Spacer()
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(.white)
+                            .font(.title2)
+                    }
+
+                }
+                .padding()
+
+                Spacer()
+
+                if let selectedImage {
+                    selectedImage
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 230)
+                        .clipShape(Circle())
+                }
+
+                Spacer()
+
+            }
+        }
+    }
 }
