@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CommentSheetView: View {
+    var comments: [Comments]
     var body: some View {
         VStack{
             HStack{
@@ -17,20 +18,21 @@ struct CommentSheetView: View {
             Divider()
             
             ScrollView(.vertical, showsIndicators: true) {
-                ForEach(0..<30) { _ in
-                    VStack(alignment: .leading) {
+                VStack(alignment: .leading) {
+                    ForEach(comments) { comment in
                         HStack(alignment: .top) {
                             Circle()
                                 .frame(height: 40)
+                            
                             VStack(alignment: .leading) {
                                 HStack(spacing: 5){
-                                    Text("mockuser")
+                                    Text("username")
                                         .bold()
                                     Text("24 ó")
                                         .foregroundStyle(.gray)
                                 }
                                 HStack(alignment: .top, spacing: 30) {
-                                    Text("mock comment mock comment mock comment mock comment mock comment mock comment")
+                                    Text("comment comment comment comment")
                                     
                                     VStack(spacing: 10) {
                                         Button {
@@ -41,7 +43,6 @@ struct CommentSheetView: View {
                                         }
                                         Text("4")
                                     }
-                                    
                                 }
                             }
                         }
@@ -52,52 +53,56 @@ struct CommentSheetView: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            VStack{
-                Divider()
-                HStack(spacing: 25){
-                    ForEach(0..<8) { _ in
-                        Text("✅")
-                            .font(.title2)
-                    }
-                }
-                HStack{
-                    Circle()
-                        .frame(height: 50)
-                    
-                    Capsule()
-                        .stroke(.gray,lineWidth: 0.5)
-                        .frame(width: UIScreen.main.bounds.width - 70, height: 40)
-                        .overlay {
-                            HStack{
-                                Text("Comment: tomockuser....")
-                                    .foregroundStyle(.gray)
-                                Spacer()
-                                
-                                Button {
-                                    //send the comment
-                                    // in default -> hidden -> if textfield is not empty -> show
-                                } label: {
-                                    Capsule()
-                                        .frame(width: 45, height: 28)
-                                        .foregroundStyle(.blue)
-                                        .overlay {
-                                            Image(systemName: "arrow.up")
-                                                .fontWeight(.heavy)
-                                                .foregroundStyle(.white)
-                                        }
-                                }
-
-                            }
-                            .padding(.horizontal, 5)
-                        }
-                }
-                .padding(.horizontal)
-            }
-            .background()
+            commentTextField()
         }
+    }
+    @ViewBuilder
+    private func commentTextField() -> some View {
+        VStack{
+            Divider()
+            HStack(spacing: 25){
+                ForEach(0..<8) { _ in
+                    Text("✅")
+                        .font(.title2)
+                }
+            }
+            HStack{
+                Circle()
+                    .frame(height: 50)
+                
+                Capsule()
+                    .stroke(.gray,lineWidth: 0.5)
+                    .frame(width: UIScreen.main.bounds.width - 70, height: 40)
+                    .overlay {
+                        HStack{
+                            Text("Comment: tomockuser....")
+                                .foregroundStyle(.gray)
+                            Spacer()
+                            
+                            Button {
+                                //send the comment
+                                // in default -> hidden -> if textfield is not empty -> show
+                            } label: {
+                                Capsule()
+                                    .frame(width: 45, height: 28)
+                                    .foregroundStyle(.blue)
+                                    .overlay {
+                                        Image(systemName: "arrow.up")
+                                            .fontWeight(.heavy)
+                                            .foregroundStyle(.white)
+                                    }
+                            }
+                            
+                        }
+                        .padding(.horizontal, 5)
+                    }
+            }
+            .padding(.horizontal)
+        }
+        .background()
     }
 }
 
 #Preview {
-    CommentSheetView()
+    CommentSheetView(comments: mockPosts[0].comments)
 }

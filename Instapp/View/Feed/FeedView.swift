@@ -10,19 +10,23 @@ import SwiftUI
 struct FeedView: View {
     @State private var showComments: Bool = false
     @State private var showWhoLikesPost: Bool = false
+    
+    @Environment(ApiViewModel.self) var apiVM
+    
     var body: some View {
         VStack{
             createStories()
             
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(spacing: 35) {
-                    ForEach(0..<20) { _ in
-                        createFeedCell()
+                    ForEach(apiVM.posts) { post in
+                        createFeedCell(post: post)
                     }
                 }
             }
             .padding(.top)
         }
+        .task { await apiVM.fetchPosts() }
     }
     private func createStories() -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -32,17 +36,22 @@ struct FeedView: View {
                         StoryView()
                     } label: {
                         VStack{
-                            Circle()
-                                .stroke(lineWidth: 3)
-                                .fill(
-                                    LinearGradient(colors: [.orange, .yellow,.pink, .purple], startPoint: .bottomLeading, endPoint: .topTrailing)
-                                )
-                                .frame(height: 70)
-                                .overlay {
-                                    Circle()
-                                        .frame(height: 62)
-                                        .foregroundStyle(.gray)
-                                }
+                            if index != 0 {
+                                Circle()
+                                    .stroke(lineWidth: 3)
+                                    .fill(
+                                        LinearGradient(colors: [.orange, .yellow,.pink, .purple], startPoint: .bottomLeading, endPoint: .topTrailing)
+                                    )
+                                    .frame(height: 70)
+                                    .overlay {
+                                        Circle()
+                                            .frame(height: 62)
+                                            .foregroundStyle(.gray)
+                                    }
+                            } else {
+                                Circle()
+                                    .frame(height: 70)
+                            }
                             
                             Text(index == 0 ? "Your story" : "mockuser")
                         }
@@ -56,7 +65,7 @@ struct FeedView: View {
         .padding(.leading, 5)
     }
     
-    private func createFeedCell() -> some View {
+    private func createFeedCell(post: PostModel) -> some View {
         VStack(spacing: 5) {
             HStack(alignment: .center) {
                 Circle()
@@ -76,7 +85,8 @@ struct FeedView: View {
             HStack(spacing: 10) {
                 HStack(spacing: 0) {
                     Image(systemName: "heart")
-                    Text("32")
+                    
+                    Text("\(post.likesCount)")
                         .font(.subheadline)
                 }
                 .font(.title2)
@@ -86,13 +96,13 @@ struct FeedView: View {
                 } label: {
                     HStack(spacing: 0) {
                         Image(systemName: "bubble")
-                        Text("5")
+                        Text("\(post.commentCount)")
                             .font(.subheadline)
                     }
                     .font(.title2)
                 }
                 .sheet(isPresented: $showComments) {
-                    CommentSheetView()
+                    CommentSheetView(comments: post.comments)
                         .padding(.top)
                         .presentationCornerRadius(12)
                         .presentationDragIndicator(.visible)
@@ -128,7 +138,6 @@ struct FeedView: View {
                     .presentationDetents([.height(650)])
             }
 
-            
             HStack{
                 VStack(alignment: .leading) {
                     HStack{
@@ -150,4 +159,13 @@ struct FeedView: View {
 
 #Preview {
     FeedView()
+        .environment(
+            ApiViewModel(
+                interactor: ApiInteractorImpl(
+                    repository: ApiRepositoryImpl(
+                        service: ApiServiceImpl()
+                    )
+                )
+            )
+        )
 }

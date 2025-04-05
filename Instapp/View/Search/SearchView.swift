@@ -9,25 +9,35 @@ import SwiftUI
 import SwiftUIX
 
 struct SearchView: View {
+    @State private var searchText: String = ""
+    @Environment(SearchViewModel.self) var searchVM
     var body: some View {
-        VStack{
-            SearchBar("Search...", text: .constant(""), isEditing: .constant(false))
-                .showsCancelButton(false)
-                       .onCancel { print("Canceled!") }
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 20) {
-                    ForEach(0..<20) { _ in
-                        HStack{
-                            Circle()
-                                .frame(height: 40)
-                            Text("mock search")
-                            Spacer()
+        NavigationStack{
+            VStack{
+                ScrollView(.vertical, showsIndicators: false) {
+                    LazyVStack(spacing: 20) {
+                        ForEach(searchVM.searchedUsers) { user in
+                            HStack{
+                                Image(.mockPhoto)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 40)
+                                    .clipShape(Circle())
+                                
+                                Text(user.username)
+                                Spacer()
+                            }
                         }
                     }
+                    .padding(.leading)
                 }
-                .padding(.leading)
+                .padding(.top)
             }
-            .padding(.top)
+            .task { await searchVM.fetchAllUsers() }
+            .searchable(text: $searchText)
+            .onChange(of: searchText) { oldValue, newValue in
+                Task { await  self.searchVM.searchForUsers(newValue, users: mockCurrentUser) }
+            }
         }
     }
 }
@@ -35,5 +45,14 @@ struct SearchView: View {
 #Preview {
     NavigationStack{
         SearchView()
+            .environment(
+                SearchViewModel(
+                    interactor: SearchInteractorImpl(
+                        repository: SearchRepositoryImpl(
+                            service: SearchServiceImpl()
+                        )
+                    )
+                )
+            )
     }
 }

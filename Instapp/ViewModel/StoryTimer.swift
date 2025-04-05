@@ -16,7 +16,6 @@ class StoryTimer: ObservableObject {
     private let publisher: Timer.TimerPublisher
     private var cancellable: Cancellable?
     
-    
     init(items: Int, interval: TimeInterval) {
         self.max = items
         self.progress = 0

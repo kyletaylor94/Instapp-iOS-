@@ -15,6 +15,3 @@ struct InstappApp: App {
         }
     }
 }
-
-
-

@@ -20,9 +20,15 @@ struct ProfileView: View {
     @State private var selectedImageTwo: Image?
     @State private var customViewer: Bool = false
     
-        
     @Environment(\.dismiss) var dismiss
+    @Environment(AuthViewModel.self) var authVM
     
+    var currentUser: CurrentUser {
+        guard let user = authVM.currentUser else { return .init(username: "", fullName: "", stat: ProfileStat(posts: 0, followers: 0, following: 0), profileImage: Image(.mockPhoto))}
+        
+        return user
+    }
+
     var body: some View {
         ZStack{
             ScrollView(.vertical, showsIndicators: false) {
@@ -81,7 +87,7 @@ struct ProfileView: View {
                     }
                    
                 } label: {
-                    Image(.mockPhoto)
+                    currentUser.profileImage
                         .resizable()
                         .scaledToFit()
                         .frame(height: 70)
@@ -89,19 +95,18 @@ struct ProfileView: View {
                 }
 
 
-                
-                Text("user")
+                Text(currentUser.username)
                     .frame(width: 70, alignment: .center)
             }
             
             Spacer()
             
             HStack(spacing: 20) {
-                createStat(value: 5, placeholder: "Posts")
+                createStat(value: currentUser.stat.posts, placeholder: "Posts")
                 
-                createStat(value: 10, placeholder: "Followers")
+                createStat(value: currentUser.stat.followers, placeholder: "Followers")
                 
-                createStat(value: 15, placeholder: "Following")
+                createStat(value: currentUser.stat.following, placeholder: "Following")
             }
             
             Spacer()
@@ -153,6 +158,15 @@ struct ProfileView: View {
 
 #Preview {
     ProfileView()
+        .environment(
+            AuthViewModel(
+                interactor: AuthInteractorImpl(
+                    repository: AuthRepositoryImpl(
+                        service: AuthServiceImpl()
+                    )
+                )
+            )
+        )
 }
 
 

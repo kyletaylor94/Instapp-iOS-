@@ -18,6 +18,10 @@ enum TabItem: String, CaseIterable, Identifiable {
 }
 
 struct CustomTabView: View {
+    @State private var authVM = AuthViewModel(interactor: AuthInteractorImpl(repository: AuthRepositoryImpl(service: AuthServiceImpl())))
+    @State private var apiVM = ApiViewModel(interactor: ApiInteractorImpl(repository: ApiRepositoryImpl(service: ApiServiceImpl())))
+    @State private var searchVM = SearchViewModel(interactor: SearchInteractorImpl(repository: SearchRepositoryImpl(service: SearchServiceImpl())))
+    
     @State private var showUploadView = false
     @State private var selectedTab: TabItem = .feed
 
@@ -27,9 +31,11 @@ struct CustomTabView: View {
                 switch selectedTab {
                 case .feed:
                     FeedView()
+                        .environment(apiVM)
                     
                 case .search:
                     SearchView()
+                        .environment(searchVM)
                     
                 case .upload:
                     EmptyView()
@@ -39,39 +45,50 @@ struct CustomTabView: View {
                     
                 case .profile:
                     ProfileView()
+                        .environment(authVM)
                 }
             }
-            .safeAreaInset(edge: .bottom) {
-                Rectangle()
-                    .overlay {
-                        HStack(alignment: .top, spacing: 50) {
-                            ForEach(TabItem.allCases) { tab in
-                                Button {
-                                    if tab == .upload {
-                                        showUploadView = true
-                                    } else {
-                                        selectedTab = tab
-                                    }
-                                } label: {
-                                    Image(systemName: tab.rawValue)
-                                        .font(.title2)
-                                        .foregroundStyle(selectedTab == tab ? .blue : .gray)
-                                        .offset(y: -10)
-                                }
+            .safeAreaInset(edge: .bottom) { createTabBar() }
+        }
+        .task { await authVM.fetchCurrentUser() }
+        .fullScreenCover(isPresented: $showUploadView) { UploadView() }
+    }
+    @ViewBuilder
+    private func createTabBar() -> some View {
+        Rectangle()
+            .overlay {
+                HStack(alignment: .top, spacing: 50) {
+                    ForEach(TabItem.allCases) { tab in
+                        Button {
+                            if tab == .upload {
+                                showUploadView = true
+                            } else {
+                                selectedTab = tab
                             }
+                        } label: {
+                            Image(systemName: tab.rawValue)
+                                .font(.title2)
+                                .foregroundStyle(selectedTab == tab ? .blue : .gray)
+                                .offset(y: -10)
                         }
                     }
-                    .frame(height: 70)
-                    .offset(y: 35)
-                    .foregroundStyle(.white)
+                }
             }
-        }
-        .fullScreenCover(isPresented: $showUploadView) {
-            UploadView()
-        }
+            .frame(height: 70)
+            .offset(y: 35)
+            .foregroundStyle(.white)
     }
 }
 
 #Preview {
     CustomTabView()
+        .environment(
+            AuthViewModel(
+                interactor: AuthInteractorImpl(
+                    repository: AuthRepositoryImpl(
+                        service: AuthServiceImpl()
+                    )
+                )
+            )
+        )
 }
