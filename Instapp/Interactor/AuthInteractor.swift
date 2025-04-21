@@ -17,7 +17,7 @@ protocol AuthInteractor {
 class AuthInteractorImpl: AuthInteractor {
     
    private var repository: AuthRepository {
-        guard let authRepository = DependencyContainer.shared.container.resolve(AuthRepository.self) else {
+        guard let authRepository = DependencyContainer.shared.resolver.resolve(AuthRepository.self) else {
             preconditionFailure("Cannot resolve: \(AuthRepository.self)")
         }
         return authRepository

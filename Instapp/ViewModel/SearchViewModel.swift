@@ -27,7 +27,7 @@ class SearchViewModel {
     var errorType: SearchErrorTypes? = nil
     
     private var interactor: SearchInteractor {
-        guard let searchInteractor = DependencyContainer.shared.container.resolve(SearchInteractor.self) else {
+        guard let searchInteractor = DependencyContainer.shared.resolver.resolve(SearchInteractor.self) else {
             preconditionFailure("Cannot resolve: \(SearchInteractor.self)")
         }
         return searchInteractor

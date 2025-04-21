@@ -11,8 +11,11 @@ import Swinject
 final class DependencyContainer {
     static let shared = DependencyContainer()
     let container = Container()
+    let resolver: Resolver
     
     private init () {
+        resolver = container.synchronize()
+
         configureAuthDependencies()
         configureSearchDependencies()
         configureApiDependencies()

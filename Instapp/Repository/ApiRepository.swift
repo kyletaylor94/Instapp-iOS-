@@ -14,7 +14,7 @@ protocol ApiRepository {
 class ApiRepositoryImpl: ApiRepository {
     
     private var service: ApiService {
-        guard let apiService = DependencyContainer.shared.container.resolve(ApiService.self) else {
+        guard let apiService = DependencyContainer.shared.resolver.resolve(ApiService.self) else {
             preconditionFailure("Cannot resolve: \(ApiService.self)")
         }
         return apiService

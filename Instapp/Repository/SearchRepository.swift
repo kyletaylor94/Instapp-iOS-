@@ -15,7 +15,7 @@ protocol SearchRepository {
 class SearchRepositoryImpl: SearchRepository {
    
     private var service: SearchService {
-        guard let  searchService = DependencyContainer.shared.container.resolve(SearchService.self) else {
+        guard let  searchService = DependencyContainer.shared.resolver.resolve(SearchService.self) else {
             preconditionFailure("Cannot resolve: \(SearchService.self)")
         }
         return searchService

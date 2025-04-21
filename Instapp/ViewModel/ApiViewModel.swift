@@ -37,7 +37,7 @@ class ApiViewModel {
     
     
     private var interactor: ApiInteractor {
-        guard let apiInteractor = DependencyContainer.shared.container.resolve(ApiInteractor.self) else {
+        guard let apiInteractor = DependencyContainer.shared.resolver.resolve(ApiInteractor.self) else {
             preconditionFailure("Cannot resolve: \(ApiInteractor.self)")
         }
         return apiInteractor

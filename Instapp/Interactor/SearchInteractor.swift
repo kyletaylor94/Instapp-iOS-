@@ -15,7 +15,7 @@ protocol SearchInteractor {
 class SearchInteractorImpl: SearchInteractor {
     
     private var repository: SearchRepository {
-        guard let searchRepository = DependencyContainer.shared.container.resolve(SearchRepository.self) else {
+        guard let searchRepository = DependencyContainer.shared.resolver.resolve(SearchRepository.self) else {
             preconditionFailure("Cannot resolve: \(SearchRepository.self)")
         }
         return searchRepository

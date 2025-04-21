@@ -13,7 +13,7 @@ protocol ApiInteractor {
 
 class ApiInteractorImpl: ApiInteractor {
     private var repository: ApiRepository {
-        guard let apiRepository = DependencyContainer.shared.container.resolve(ApiRepository.self) else {
+        guard let apiRepository = DependencyContainer.shared.resolver.resolve(ApiRepository.self) else {
             preconditionFailure("Cannot resolve: \(ApiRepository.self)")
         }
         return apiRepository

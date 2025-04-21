@@ -17,7 +17,7 @@ protocol AuthRepository {
 
 class AuthRepositoryImpl: AuthRepository {
     private var service: AuthService {
-        guard let authService = DependencyContainer.shared.container.resolve(AuthService.self) else {
+        guard let authService = DependencyContainer.shared.resolver.resolve(AuthService.self) else {
             preconditionFailure("CAnnot resolve: \(AuthService.self)")
         }
         return authService

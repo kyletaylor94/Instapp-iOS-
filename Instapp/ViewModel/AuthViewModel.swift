@@ -37,7 +37,7 @@ class AuthViewModel {
     var errorType: AuthErrorType? = nil
     
     private var interactor: AuthInteractor {
-        guard let authInteractor = DependencyContainer.shared.container.resolve(AuthInteractor.self) else {
+        guard let authInteractor = DependencyContainer.shared.resolver.resolve(AuthInteractor.self) else {
             preconditionFailure("Cannot resolve: \(AuthInteractor.self)")
         }
         return authInteractor
