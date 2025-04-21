@@ -8,44 +8,25 @@
 import SwiftUI
 
 struct CommentSheetView: View {
+    @State private var selectedEmoji: String = ""
+    var emojis: [String] = ["🤩", "😱", "😍", "🥰", "😎", "❤️", "😜", "👀"]
     var comments: [Comments]
+    
+    @State private var commentText: String = ""
+   
     var body: some View {
         VStack{
             HStack{
                 Text("Comments")
                     .bold()
             }
+            
             Divider()
             
             ScrollView(.vertical, showsIndicators: true) {
                 VStack(alignment: .leading) {
                     ForEach(comments) { comment in
-                        HStack(alignment: .top) {
-                            Circle()
-                                .frame(height: 40)
-                            
-                            VStack(alignment: .leading) {
-                                HStack(spacing: 5){
-                                    Text("username")
-                                        .bold()
-                                    Text("24 ó")
-                                        .foregroundStyle(.gray)
-                                }
-                                HStack(alignment: .top, spacing: 30) {
-                                    Text("comment comment comment comment")
-                                    
-                                    VStack(spacing: 10) {
-                                        Button {
-                                            //heart
-                                        } label: {
-                                            Image(systemName: "heart")
-                                                .foregroundStyle(.gray)
-                                        }
-                                        Text("4")
-                                    }
-                                }
-                            }
-                        }
+                       createCommentCell()
                     }
                     .padding(.horizontal, 8)
                     .padding(.top)
@@ -56,27 +37,69 @@ struct CommentSheetView: View {
             commentTextField()
         }
     }
+    private func createCommentCell() -> some View {
+        HStack(alignment: .top) {
+            Circle()
+                .frame(height: 40)
+            
+            VStack(alignment: .leading) {
+                HStack(spacing: 5){
+                    Text("username")
+                        .bold()
+                    
+                    Text("24 ó")
+                        .foregroundStyle(.gray)
+                }
+                HStack(alignment: .top, spacing: 30) {
+                    Text("comment comment comment comment")
+                    
+                    VStack(spacing: 10) {
+                        Button {
+                            //heart
+                        } label: {
+                            Image(systemName: "heart")
+                                .foregroundStyle(.gray)
+                        }
+                        Text("4")
+                    }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func createEmojiCell() -> some View {
+        HStack(spacing: 25) {
+            ForEach(emojis, id: \.self) { emoji in
+                Button {
+                    selectedEmoji = emoji
+                    commentText.append(emoji)
+                } label: {
+                    Text(emoji)
+                        .font(.title2)
+                }
+            }
+        }
+    }
+    
     @ViewBuilder
     private func commentTextField() -> some View {
         VStack{
             Divider()
-            HStack(spacing: 25){
-                ForEach(0..<8) { _ in
-                    Text("✅")
-                        .font(.title2)
-                }
-            }
+            createEmojiCell()
+            
             HStack{
                 Circle()
                     .frame(height: 50)
                 
                 Capsule()
                     .stroke(.gray,lineWidth: 0.5)
-                    .frame(width: UIScreen.main.bounds.width - 70, height: 40)
+                    .frame(width: UIScreen.main.bounds.width - 70, height: 45)
                     .overlay {
                         HStack{
-                            Text("Comment: tomockuser....")
-                                .foregroundStyle(.gray)
+                            TextField("Commen: tomockuser....", text: $commentText, axis: .vertical)
+                                .padding(.horizontal, 5)
+                            
                             Spacer()
                             
                             Button {
@@ -105,4 +128,6 @@ struct CommentSheetView: View {
 
 #Preview {
     CommentSheetView(comments: mockPosts[0].comments)
+   // CommentSheetView()
+    //CommentSheetView(comments: mockPosts[0].comments)
 }

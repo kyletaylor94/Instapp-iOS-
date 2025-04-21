@@ -29,16 +29,16 @@ enum ApiError: String, Error {
 }
 
 @Observable
-class ApiViewModel {
+class PostViewModel {
     var posts = [PostModel]()
     var isLoading = false
     var hasError = false
     var errorType: ApiError? = nil
     
     
-    private var interactor: ApiInteractor {
-        guard let apiInteractor = DependencyContainer.shared.resolver.resolve(ApiInteractor.self) else {
-            preconditionFailure("Cannot resolve: \(ApiInteractor.self)")
+    private var interactor: PostInteractor {
+        guard let apiInteractor = DependencyContainer.shared.resolver.resolve(PostInteractor.self) else {
+            preconditionFailure("Cannot resolve: \(PostInteractor.self)")
         }
         return apiInteractor
     }

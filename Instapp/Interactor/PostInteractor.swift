@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol ApiInteractor {
+protocol PostInteractor {
     func fetchPosts() async throws -> [PostModel]
 }
 
-class ApiInteractorImpl: ApiInteractor {
-    private var repository: ApiRepository {
-        guard let apiRepository = DependencyContainer.shared.resolver.resolve(ApiRepository.self) else {
-            preconditionFailure("Cannot resolve: \(ApiRepository.self)")
+class PostInteractorImpl: PostInteractor {
+    private var repository: PostRepository {
+        guard let apiRepository = DependencyContainer.shared.resolver.resolve(PostRepository.self) else {
+            preconditionFailure("Cannot resolve: \(PostRepository.self)")
         }
         return apiRepository
     }

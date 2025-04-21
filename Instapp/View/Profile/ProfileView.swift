@@ -23,6 +23,8 @@ struct ProfileView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(AuthViewModel.self) var authVM
     
+    @Binding var hideTabBar: Bool
+    
     var currentUser: CurrentUser {
         guard let user = authVM.currentUser else { return .init(username: "", fullName: "", stat: ProfileStat(posts: 0, followers: 0, following: 0), profileImage: Image(.mockPhoto))}
         
@@ -41,36 +43,10 @@ struct ProfileView: View {
                 }
             }
             .blur(radius: customViewer ? 15 : 0)
-            
+            .disabled(customViewer ? true : false)
             
             if let image = selectedImageTwo {
-                VStack{
-                    HStack{
-                        
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.5)) {
-                                customViewer = false
-                                selectedImageTwo = nil
-                            }
-                        } label: {
-                            Image(systemName: "xmark")
-                                .font(.title2)
-                                .foregroundStyle(.black)
-                        }
-
-                    }
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .padding(.trailing)
-                    Spacer()
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 230)
-                        .clipShape(Circle())
-                    
-                    Spacer()
-
-                }
+                circleProfileImageView(image: image)
             }
         }
         .fullScreenCover(isPresented: $isImagepresented) {
@@ -84,6 +60,7 @@ struct ProfileView: View {
                     withAnimation(.easeInOut(duration: 0.5)) {
                         selectedImageTwo = Image(.mockPhoto)
                         customViewer.toggle()
+                        hideTabBar = true
                     }
                    
                 } label: {
@@ -154,10 +131,41 @@ struct ProfileView: View {
             }
         }
     }
+    
+    private func circleProfileImageView(image: Image) -> some View {
+        VStack{
+            HStack{
+                Button {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        customViewer = false
+                        selectedImageTwo = nil
+                        hideTabBar = false
+                    }
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.title2)
+                        .foregroundStyle(.black)
+                }
+
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .padding(.trailing)
+            
+            Spacer()
+            
+            image
+                .resizable()
+                .scaledToFit()
+                .frame(height: 230)
+                .clipShape(Circle())
+            
+            Spacer()
+        }
+    }
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(hideTabBar: .constant(false))
         .environment(AuthViewModel())
 }
 

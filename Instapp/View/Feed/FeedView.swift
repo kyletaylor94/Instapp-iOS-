@@ -11,7 +11,7 @@ struct FeedView: View {
     @State private var showComments: Bool = false
     @State private var showWhoLikesPost: Bool = false
     
-    @Environment(ApiViewModel.self) var apiVM
+    @Environment(PostViewModel.self) var apiVM
     
     var body: some View {
         VStack{
@@ -159,5 +159,5 @@ struct FeedView: View {
 
 #Preview {
     FeedView()
-        .environment(ApiViewModel())
+        .environment(PostViewModel())
 }

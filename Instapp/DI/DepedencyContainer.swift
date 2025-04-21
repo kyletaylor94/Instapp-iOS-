@@ -36,10 +36,10 @@ final class DependencyContainer {
     }
     
     private func configureApiDependencies() {
-        container.register(ApiService.self) { _ in return ApiServiceImpl() }.inObjectScope(.container)
-        container.register(ApiRepository.self) { _ in return ApiRepositoryImpl() }.inObjectScope(.container)
-        container.register(ApiInteractor.self) { _ in return ApiInteractorImpl() }.inObjectScope(.container)
-        container.register(ApiViewModel.self) { _ in return ApiViewModel() }.inObjectScope(.transient)
+        container.register(PostService.self) { _ in return PostServiceImpl() }.inObjectScope(.container)
+        container.register(PostRepository.self) { _ in return PostRepositoryImpl() }.inObjectScope(.container)
+        container.register(PostInteractor.self) { _ in return PostInteractorImpl() }.inObjectScope(.container)
+        container.register(PostViewModel.self) { _ in return PostViewModel() }.inObjectScope(.transient)
     }
 }
 

@@ -19,11 +19,13 @@ enum TabItem: String, CaseIterable, Identifiable {
 
 struct CustomTabView: View {
     @State private var authVM = AuthViewModel()
-    @State private var apiVM = ApiViewModel()
+    @State private var apiVM = PostViewModel()
     @State private var searchVM = SearchViewModel()
     
     @State private var showUploadView = false
     @State private var selectedTab: TabItem = .feed
+    
+    @State private var isHidingTabBar = false
 
     var body: some View {
         ZStack {
@@ -44,7 +46,7 @@ struct CustomTabView: View {
                     NotificationsView()
                     
                 case .profile:
-                    ProfileView()
+                    ProfileView(hideTabBar: $isHidingTabBar)
                         .environment(authVM)
                 }
             }
@@ -77,6 +79,7 @@ struct CustomTabView: View {
             .frame(height: 70)
             .offset(y: 35)
             .foregroundStyle(.white)
+            .opacity(isHidingTabBar ? 0 : 1)
     }
 }
 

@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol ApiService {
+protocol PostService {
     func fetchPosts() async throws -> [PostModel]
 }
 
-class ApiServiceImpl: ApiService {
+class PostServiceImpl: PostService {
     
     func fetchPosts() async throws -> [PostModel] {
         return try await mockPosts

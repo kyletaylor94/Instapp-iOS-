@@ -7,15 +7,15 @@
 
 import Foundation
 
-protocol ApiRepository {
+protocol PostRepository {
     func fetchPosts() async throws -> [PostModel]
 }
 
-class ApiRepositoryImpl: ApiRepository {
+class PostRepositoryImpl: PostRepository {
     
-    private var service: ApiService {
-        guard let apiService = DependencyContainer.shared.resolver.resolve(ApiService.self) else {
-            preconditionFailure("Cannot resolve: \(ApiService.self)")
+    private var service: PostService {
+        guard let apiService = DependencyContainer.shared.resolver.resolve(PostService.self) else {
+            preconditionFailure("Cannot resolve: \(PostService.self)")
         }
         return apiService
     }
