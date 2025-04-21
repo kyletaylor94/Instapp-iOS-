@@ -19,7 +19,6 @@ enum SearchErrorTypes: String, Error {
     }
 }
 
-@MainActor
 @Observable
 class SearchViewModel {
     var searchedUsers = [CurrentUser]()
@@ -27,14 +26,11 @@ class SearchViewModel {
     var hasError = false
     var errorType: SearchErrorTypes? = nil
     
-    private var interactor: SearchInteractor
-    
-    init(searchedUsers: [CurrentUser] = [CurrentUser](), isLoading: Bool = false, hasError: Bool = false, errorType: SearchErrorTypes? = nil, interactor: SearchInteractor) {
-        self.searchedUsers = searchedUsers
-        self.isLoading = isLoading
-        self.hasError = hasError
-        self.errorType = errorType
-        self.interactor = interactor
+    private var interactor: SearchInteractor {
+        guard let searchInteractor = DependencyContainer.shared.container.resolve(SearchInteractor.self) else {
+            preconditionFailure("Cannot resolve: \(SearchInteractor.self)")
+        }
+        return searchInteractor
     }
     
     func searchForUsers(_ query: String, users: [CurrentUser]) async {

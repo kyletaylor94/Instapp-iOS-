@@ -16,10 +16,11 @@ protocol AuthInteractor {
 
 class AuthInteractorImpl: AuthInteractor {
     
-    private var repository: AuthRepository
-    
-    init(repository: AuthRepository) {
-        self.repository = repository
+   private var repository: AuthRepository {
+        guard let authRepository = DependencyContainer.shared.container.resolve(AuthRepository.self) else {
+            preconditionFailure("Cannot resolve: \(AuthRepository.self)")
+        }
+        return authRepository
     }
     
     

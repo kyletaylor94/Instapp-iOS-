@@ -35,14 +35,12 @@ class ApiViewModel {
     var hasError = false
     var errorType: ApiError? = nil
     
-    private var interactor: ApiInteractor
     
-    init(posts: [PostModel] = [PostModel](), isLoading: Bool = false, hasError: Bool = false, errorType: ApiError? = nil, interactor: ApiInteractor) {
-        self.posts = posts
-        self.isLoading = isLoading
-        self.hasError = hasError
-        self.errorType = errorType
-        self.interactor = interactor
+    private var interactor: ApiInteractor {
+        guard let apiInteractor = DependencyContainer.shared.container.resolve(ApiInteractor.self) else {
+            preconditionFailure("Cannot resolve: \(ApiInteractor.self)")
+        }
+        return apiInteractor
     }
     
     func fetchPosts() async {

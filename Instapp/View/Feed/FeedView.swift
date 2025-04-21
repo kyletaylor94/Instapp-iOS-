@@ -159,13 +159,5 @@ struct FeedView: View {
 
 #Preview {
     FeedView()
-        .environment(
-            ApiViewModel(
-                interactor: ApiInteractorImpl(
-                    repository: ApiRepositoryImpl(
-                        service: ApiServiceImpl()
-                    )
-                )
-            )
-        )
+        .environment(ApiViewModel())
 }

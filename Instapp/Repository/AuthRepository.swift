@@ -16,10 +16,11 @@ protocol AuthRepository {
 }
 
 class AuthRepositoryImpl: AuthRepository {
-    private var service: AuthService
-    
-    init(service: AuthService) {
-        self.service = service
+    private var service: AuthService {
+        guard let authService = DependencyContainer.shared.container.resolve(AuthService.self) else {
+            preconditionFailure("CAnnot resolve: \(AuthService.self)")
+        }
+        return authService
     }
     
     func login(email: String, password: String) async throws {

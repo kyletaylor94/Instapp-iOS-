@@ -45,14 +45,6 @@ struct SearchView: View {
 #Preview {
     NavigationStack{
         SearchView()
-            .environment(
-                SearchViewModel(
-                    interactor: SearchInteractorImpl(
-                        repository: SearchRepositoryImpl(
-                            service: SearchServiceImpl()
-                        )
-                    )
-                )
-            )
+            .environment(SearchViewModel())
     }
 }

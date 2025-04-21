@@ -36,11 +36,11 @@ class AuthViewModel {
     var hasError = false
     var errorType: AuthErrorType? = nil
     
-    private var interactor: AuthInteractor
-    
-    init(currentUser: CurrentUser? = nil, interactor: AuthInteractor) {
-        self.currentUser = currentUser
-        self.interactor = interactor
+    private var interactor: AuthInteractor {
+        guard let authInteractor = DependencyContainer.shared.container.resolve(AuthInteractor.self) else {
+            preconditionFailure("Cannot resolve: \(AuthInteractor.self)")
+        }
+        return authInteractor
     }
     
     func fetchCurrentUser() async {

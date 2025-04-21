@@ -158,15 +158,7 @@ struct ProfileView: View {
 
 #Preview {
     ProfileView()
-        .environment(
-            AuthViewModel(
-                interactor: AuthInteractorImpl(
-                    repository: AuthRepositoryImpl(
-                        service: AuthServiceImpl()
-                    )
-                )
-            )
-        )
+        .environment(AuthViewModel())
 }
 
 

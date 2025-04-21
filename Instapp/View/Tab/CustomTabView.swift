@@ -18,9 +18,9 @@ enum TabItem: String, CaseIterable, Identifiable {
 }
 
 struct CustomTabView: View {
-    @State private var authVM = AuthViewModel(interactor: AuthInteractorImpl(repository: AuthRepositoryImpl(service: AuthServiceImpl())))
-    @State private var apiVM = ApiViewModel(interactor: ApiInteractorImpl(repository: ApiRepositoryImpl(service: ApiServiceImpl())))
-    @State private var searchVM = SearchViewModel(interactor: SearchInteractorImpl(repository: SearchRepositoryImpl(service: SearchServiceImpl())))
+    @State private var authVM = AuthViewModel()
+    @State private var apiVM = ApiViewModel()
+    @State private var searchVM = SearchViewModel()
     
     @State private var showUploadView = false
     @State private var selectedTab: TabItem = .feed
@@ -82,13 +82,5 @@ struct CustomTabView: View {
 
 #Preview {
     CustomTabView()
-        .environment(
-            AuthViewModel(
-                interactor: AuthInteractorImpl(
-                    repository: AuthRepositoryImpl(
-                        service: AuthServiceImpl()
-                    )
-                )
-            )
-        )
+        .environment(AuthViewModel())
 }

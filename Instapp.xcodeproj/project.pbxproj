@@ -11,6 +11,7 @@
 		98C68DFE2D9691F8002C781A /* ExyteMediaPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68DFD2D9691F8002C781A /* ExyteMediaPicker */; };
 		98C68E0F2D9827F1002C781A /* ImageViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68E0E2D9827F1002C781A /* ImageViewer */; };
 		98C68E112D9827F1002C781A /* ImageViewerRemote in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68E102D9827F1002C781A /* ImageViewerRemote */; };
+		98FD3B902DB618C200423CB0 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 98FD3B8F2DB618C200423CB0 /* Swinject */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98C68DF42D93F2C7002C781A /* SwiftUIX in Frameworks */,
+				98FD3B902DB618C200423CB0 /* Swinject in Frameworks */,
 				98C68E0F2D9827F1002C781A /* ImageViewer in Frameworks */,
 				98C68E112D9827F1002C781A /* ImageViewerRemote in Frameworks */,
 				98C68DFE2D9691F8002C781A /* ExyteMediaPicker in Frameworks */,
@@ -127,6 +129,7 @@
 				98C68DFD2D9691F8002C781A /* ExyteMediaPicker */,
 				98C68E0E2D9827F1002C781A /* ImageViewer */,
 				98C68E102D9827F1002C781A /* ImageViewerRemote */,
+				98FD3B8F2DB618C200423CB0 /* Swinject */,
 			);
 			productName = Instapp;
 			productReference = 9880DCC32D7F619900386C56 /* Instapp.app */;
@@ -186,7 +189,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					9880DCC22D7F619900386C56 = {
 						CreatedOnToolsVersion = 16.2;
@@ -214,6 +217,7 @@
 				98C68DF22D93F2C7002C781A /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				98C68DFC2D9691F8002C781A /* XCRemoteSwiftPackageReference "mediapicker" */,
 				98C68E0D2D9827F1002C781A /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */,
+				98FD3B8E2DB618C200423CB0 /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9880DCC42D7F619900386C56 /* Products */;
@@ -324,6 +328,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = KB835FKYB4;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -387,6 +392,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = KB835FKYB4;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -416,7 +422,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Instapp/Preview Content\"";
-				DEVELOPMENT_TEAM = KB835FKYB4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We would like to access your photos to use this app";
@@ -450,7 +455,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Instapp/Preview Content\"";
-				DEVELOPMENT_TEAM = KB835FKYB4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We would like to access your photos to use this app";
@@ -482,7 +486,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KB835FKYB4;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
@@ -501,7 +504,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KB835FKYB4;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
@@ -519,7 +521,6 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KB835FKYB4;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.csaba.turdesan.InstappUITests;
@@ -536,7 +537,6 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KB835FKYB4;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.csaba.turdesan.InstappUITests;
@@ -614,6 +614,14 @@
 				minimumVersion = 2.3.1;
 			};
 		};
+		98FD3B8E2DB618C200423CB0 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -636,6 +644,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 98C68E0D2D9827F1002C781A /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */;
 			productName = ImageViewerRemote;
+		};
+		98FD3B8F2DB618C200423CB0 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98FD3B8E2DB618C200423CB0 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

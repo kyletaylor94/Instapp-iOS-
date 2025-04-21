@@ -13,10 +13,12 @@ protocol SearchInteractor {
 }
 
 class SearchInteractorImpl: SearchInteractor {
-    private var repository: SearchRepository
     
-    init(repository: SearchRepository) {
-        self.repository = repository
+    private var repository: SearchRepository {
+        guard let searchRepository = DependencyContainer.shared.container.resolve(SearchRepository.self) else {
+            preconditionFailure("Cannot resolve: \(SearchRepository.self)")
+        }
+        return searchRepository
     }
     
     func searchForUsers(_ query: String, _ users: [CurrentUser]) async throws -> [CurrentUser] {

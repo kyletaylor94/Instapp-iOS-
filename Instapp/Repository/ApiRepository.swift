@@ -12,10 +12,12 @@ protocol ApiRepository {
 }
 
 class ApiRepositoryImpl: ApiRepository {
-    private var service: ApiService
     
-    init(service: ApiService) {
-        self.service = service
+    private var service: ApiService {
+        guard let apiService = DependencyContainer.shared.container.resolve(ApiService.self) else {
+            preconditionFailure("Cannot resolve: \(ApiService.self)")
+        }
+        return apiService
     }
     
     func fetchPosts() async throws -> [PostModel] {

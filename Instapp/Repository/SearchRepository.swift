@@ -13,10 +13,12 @@ protocol SearchRepository {
 }
 
 class SearchRepositoryImpl: SearchRepository {
-    private var service: SearchService
-    
-    init(service: SearchService) {
-        self.service = service
+   
+    private var service: SearchService {
+        guard let  searchService = DependencyContainer.shared.container.resolve(SearchService.self) else {
+            preconditionFailure("Cannot resolve: \(SearchService.self)")
+        }
+        return searchService
     }
     
     func searchForUsers(with query: String, users: [CurrentUser]) async throws -> [CurrentUser] {

@@ -12,10 +12,11 @@ protocol ApiInteractor {
 }
 
 class ApiInteractorImpl: ApiInteractor {
-    private var repository: ApiRepository
-    
-    init(repository: ApiRepository) {
-        self.repository = repository
+    private var repository: ApiRepository {
+        guard let apiRepository = DependencyContainer.shared.container.resolve(ApiRepository.self) else {
+            preconditionFailure("Cannot resolve: \(ApiRepository.self)")
+        }
+        return apiRepository
     }
     
     func fetchPosts() async throws -> [PostModel] {
