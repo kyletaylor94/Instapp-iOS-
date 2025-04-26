@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+
 extension View {
     func createFollowOrFollowingButton(following: Bool, action: @escaping () -> ()) -> some View {
         Button(action: action) {

@@ -30,6 +30,7 @@ enum AuthErrorType: String, Error {
 
 @Observable
 class AuthViewModel {
+    var currentUserFromAPI: User?
     var currentUser: CurrentUser?
     
     var isLoading = false
@@ -54,14 +55,18 @@ class AuthViewModel {
     func login(email: String, password: String) async {
         do {
             try await interactor.login(email: email, password: password)
+            await fetchCurrentUserFromAPI()
+            print(currentUserFromAPI)
         } catch {
             print(error.localizedDescription)
         }
     }
     
-    func register(email: String, password: String, userName: String, fullName: String) async {
+    func register(name: String, email: String, password: String, confirmPassword: String) async {
         do {
-            try await interactor.register(email: email, password: password, userName: userName, fullName: fullName)
+            try await interactor.register(name: name, email: email, password: password, confirmPassword: confirmPassword)
+            await fetchCurrentUserFromAPI()
+            print(currentUserFromAPI)
         } catch {
             print(error.localizedDescription)
         }
@@ -70,6 +75,24 @@ class AuthViewModel {
     func logOut() async {
         do {
             try await interactor.logout()
+            self.currentUserFromAPI = nil
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func fetchCurrentUserFromAPI() async {
+        do {
+            self.currentUserFromAPI = try await interactor.fetchCurrentUserFromAPI()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func checkLoginStatus() async {
+        do {
+           let (isAuthenticated, user) = try await interactor.checkLoginStatus()
+            self.currentUserFromAPI = user
         } catch {
             print(error.localizedDescription)
         }

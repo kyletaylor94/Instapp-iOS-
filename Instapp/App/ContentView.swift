@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(AuthViewModel.self) var authVM
     var body: some View {
         NavigationStack{
             CustomTabView()
+                .environment(authVM)
         }
     }
 }

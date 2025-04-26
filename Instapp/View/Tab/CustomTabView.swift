@@ -18,7 +18,9 @@ enum TabItem: String, CaseIterable, Identifiable {
 }
 
 struct CustomTabView: View {
-    @State private var authVM = AuthViewModel()
+  //  @State private var authVM = AuthViewModel()
+    @Environment(AuthViewModel.self) var authVM
+    
     @State private var apiVM = PostViewModel()
     @State private var searchVM = SearchViewModel()
     
@@ -54,6 +56,16 @@ struct CustomTabView: View {
         }
         .task { await authVM.fetchCurrentUser() }
         .fullScreenCover(isPresented: $showUploadView) { UploadView() }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    Task { await  authVM.logOut() }
+                } label: {
+                    Image(systemName: "arrow.left")
+                        .foregroundColor(.black)
+                }
+            }
+        }
     }
     @ViewBuilder
     private func createTabBar() -> some View {

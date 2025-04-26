@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		983F1AB42DBD587700242769 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 983F1AB32DBD587700242769 /* Alamofire */; };
 		98C68DF42D93F2C7002C781A /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68DF32D93F2C7002C781A /* SwiftUIX */; };
 		98C68DFE2D9691F8002C781A /* ExyteMediaPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68DFD2D9691F8002C781A /* ExyteMediaPicker */; };
 		98C68E0F2D9827F1002C781A /* ImageViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 98C68E0E2D9827F1002C781A /* ImageViewer */; };
@@ -37,9 +38,22 @@
 		9880DCDD2D7F619B00386C56 /* InstappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstappUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		983F1AAD2DBCC2FF00242769 /* Exceptions for "Instapp" folder in "Instapp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9880DCC22D7F619900386C56 /* Instapp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9880DCC52D7F619900386C56 /* Instapp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				983F1AAD2DBCC2FF00242769 /* Exceptions for "Instapp" folder in "Instapp" target */,
+			);
 			path = Instapp;
 			sourceTree = "<group>";
 		};
@@ -63,6 +77,7 @@
 				98C68DF42D93F2C7002C781A /* SwiftUIX in Frameworks */,
 				98FD3B902DB618C200423CB0 /* Swinject in Frameworks */,
 				98C68E0F2D9827F1002C781A /* ImageViewer in Frameworks */,
+				983F1AB42DBD587700242769 /* Alamofire in Frameworks */,
 				98C68E112D9827F1002C781A /* ImageViewerRemote in Frameworks */,
 				98C68DFE2D9691F8002C781A /* ExyteMediaPicker in Frameworks */,
 			);
@@ -130,6 +145,7 @@
 				98C68E0E2D9827F1002C781A /* ImageViewer */,
 				98C68E102D9827F1002C781A /* ImageViewerRemote */,
 				98FD3B8F2DB618C200423CB0 /* Swinject */,
+				983F1AB32DBD587700242769 /* Alamofire */,
 			);
 			productName = Instapp;
 			productReference = 9880DCC32D7F619900386C56 /* Instapp.app */;
@@ -218,6 +234,7 @@
 				98C68DFC2D9691F8002C781A /* XCRemoteSwiftPackageReference "mediapicker" */,
 				98C68E0D2D9827F1002C781A /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */,
 				98FD3B8E2DB618C200423CB0 /* XCRemoteSwiftPackageReference "Swinject" */,
+				983F1AB22DBD587700242769 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9880DCC42D7F619900386C56 /* Products */;
@@ -424,6 +441,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Instapp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Instapp/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We would like to access your photos to use this app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -457,6 +475,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Instapp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Instapp/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We would like to access your photos to use this app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -590,6 +609,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		983F1AB22DBD587700242769 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
 		98C68DF22D93F2C7002C781A /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
@@ -625,6 +652,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		983F1AB32DBD587700242769 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 983F1AB22DBD587700242769 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		98C68DF32D93F2C7002C781A /* SwiftUIX */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 98C68DF22D93F2C7002C781A /* XCRemoteSwiftPackageReference "SwiftUIX" */;

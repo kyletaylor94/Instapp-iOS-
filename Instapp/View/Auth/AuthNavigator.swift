@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AuthNavigator: View {
+    @Environment(AuthViewModel.self) var authVM
     @Environment(\.dismiss) var dismiss
     var isRegisterView: Bool
     var body: some View {
@@ -15,6 +16,7 @@ struct AuthNavigator: View {
             VStack{
                 NavigationLink {
                     RegisterView()
+                        .environment(authVM)
                 } label: {
                     Text("Don't you have an account? ").foregroundStyle(.white) +
                     Text("Sign up")

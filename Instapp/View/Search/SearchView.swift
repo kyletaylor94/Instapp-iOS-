@@ -36,6 +36,7 @@ struct SearchView: View {
                 .clipShape(Circle())
             
             Text(user.username)
+            
             Spacer()
         }
     }

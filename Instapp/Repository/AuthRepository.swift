@@ -8,11 +8,13 @@
 import Foundation
 
 protocol AuthRepository {
+    func fetchToken() async throws
     func login(email: String, password: String) async throws
-    func register(email: String, password: String, userName: String, fullName: String) async throws
+    func register(name: String, email: String, password: String, confirmPassword: String) async throws
     func logout() async throws
     
     func fetchCurrentUser() async throws -> CurrentUser?
+    func fetchCurrentUserFromAPI() async throws -> User?
 }
 
 class AuthRepositoryImpl: AuthRepository {
@@ -23,12 +25,16 @@ class AuthRepositoryImpl: AuthRepository {
         return authService
     }
     
+    func fetchToken() async throws {
+        return try await service.fetchToken()
+    }
+    
     func login(email: String, password: String) async throws {
         return try await service.login(email: email, password: password)
     }
     
-    func register(email: String, password: String, userName: String, fullName: String) async throws {
-        return try await service.register(email: email, password: password, username: userName, fullName: fullName)
+    func register(name: String, email: String, password: String, confirmPassword: String) async throws {
+        return try await service.register(name: name, email: email, password: password, confirmPassword: confirmPassword)
     }
     
     func logout() async throws {
@@ -39,5 +45,8 @@ class AuthRepositoryImpl: AuthRepository {
         return try await service.fetchCurrentUser()
     }
     
-    
+    func fetchCurrentUserFromAPI() async throws -> User? {
+        return try await service.fetchCurrentUserFromAPI()
+    }
+
 }

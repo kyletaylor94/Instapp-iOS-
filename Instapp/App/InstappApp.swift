@@ -9,9 +9,20 @@ import SwiftUI
 
 @main
 struct InstappApp: App {
+    @State private var authVM = AuthViewModel()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+                if authVM.currentUserFromAPI != nil {
+                    ContentView()
+                        .environment(authVM)
+                } else {
+                    LoginView()
+                        .environment(authVM)
+                }
+            }
+            .onAppear{
+                Task { await authVM.checkLoginStatus() } }
         }
     }
 }

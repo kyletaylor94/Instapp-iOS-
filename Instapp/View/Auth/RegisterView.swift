@@ -9,13 +9,15 @@ import SwiftUI
 import PhotosUI
 
 struct RegisterView: View {
+    @State private var name: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
-    @State private var fullName: String = ""
-    @State private var userName: String = ""
+    @State private var confirmPassword: String = ""
     
     @State private var avatarItem: PhotosPickerItem?
     @State private var avatarImage: Image?
+    
+    @Environment(AuthViewModel.self) var authVM
     
     var body: some View {
         ZStack{
@@ -32,20 +34,27 @@ struct RegisterView: View {
                 
                 VStack{
                     createTextField(icon: "envelope", placeholder: "Email", text: $email, isSecureField: false)
+                        .keyboardType(.emailAddress)
+                        .autocorrectionDisabled()
+                        .autocapitalization(.none)
                     
                     createTextField(icon: "lock", placeholder: "Password", text: $password, isSecureField: true)
                     
-                    createTextField(icon: "person", placeholder: "Full name", text: $fullName, isSecureField: false)
-                    
-                    createTextField(icon: "person", placeholder: "Username", text: $userName, isSecureField: false)
+                    createTextField(icon: "lock", placeholder: "Confirm Password", text: $confirmPassword, isSecureField: true)
+
+                    createTextField(icon: "person", placeholder: "Full name", text: $name, isSecureField: false)
+                        .autocorrectionDisabled()
+
                     
                     AuthButton(void: {
                         //sign up method
+                        Task { await authVM.register(name: name, email: email, password: password, confirmPassword: confirmPassword) }
                     }, placeholder: "Sign Up")
                     
                     Spacer()
                     
                     AuthNavigator(isRegisterView: true)
+                        .environment(authVM)
                 }
             }
         }
@@ -83,4 +92,5 @@ struct RegisterView: View {
 
 #Preview {
     RegisterView()
+        .environment(AuthViewModel())
 }

@@ -10,31 +10,41 @@ import SwiftUI
 struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
+    @Environment(AuthViewModel.self) var authVM
+    
+    @State private var showContentView = false
     var body: some View {
-        ZStack{
-            LinearGradient(colors: [.purple, .blue], startPoint: .top, endPoint: .bottom)
-                .ignoresSafeArea()
-            
-            VStack(spacing: 20) {
-                Image(.logo)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 300, height: 100)
+        NavigationStack{
+            ZStack{
+                LinearGradient(colors: [.purple, .blue], startPoint: .top, endPoint: .bottom)
+                    .ignoresSafeArea()
                 
-                VStack{
-                    createTextField(icon: "envelope", placeholder: "Email", text: $email, isSecureField: false)
-
-                    createTextField(icon: "lock", placeholder: "Password", text: $password, isSecureField: true)
-
-                    createForgotPassword()
+                VStack(spacing: 20) {
+                    Image(.logo)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300, height: 100)
                     
-                    AuthButton(void: {
-                        //sign in
-                    }, placeholder: "Sign In")
-                    
-                    Spacer()
-                    
-                    AuthNavigator(isRegisterView: false)
+                    VStack{
+                        createTextField(icon: "envelope", placeholder: "Email", text: $email, isSecureField: false)
+                            .keyboardType(.emailAddress)
+                            .autocorrectionDisabled()
+                            .autocapitalization(.none)
+                        
+                        createTextField(icon: "lock", placeholder: "Password", text: $password, isSecureField: true)
+                        
+                        createForgotPassword()
+                        
+                        AuthButton(void: {
+                            //sign in
+                            Task { await authVM.login(email: email, password: password)}
+                        }, placeholder: "Sign In")
+                        
+                        Spacer()
+                        
+                        AuthNavigator(isRegisterView: false)
+                            .environment(authVM)
+                    }
                 }
             }
         }
@@ -59,4 +69,5 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
+        .environment(AuthViewModel())
 }
