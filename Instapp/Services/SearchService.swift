@@ -16,12 +16,12 @@ protocol SearchService {
 class SearchServiceImpl: SearchService {
     
     func fetchAllusers() async throws -> [CurrentUser] {
-        return try await mockCurrentUser
+        return mockCurrentUser
     }
     
     func searchingUsers(query: String, users: [CurrentUser]) async throws -> [CurrentUser] {
         guard !query.isEmpty else {
-            return try await mockCurrentUser
+            return mockCurrentUser
         }
         
         return users.filter {

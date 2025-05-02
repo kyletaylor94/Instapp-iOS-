@@ -30,6 +30,12 @@ struct ProfileView: View {
         
         return user
     }
+    
+    var currentUserFromAPI: User {
+        guard let user = authVM.currentUserFromAPI else { return User(username: "Mockuser", email: "mockuser@gmail.com", isActive: true) }
+        
+        return user
+    }
 
     var body: some View {
         ZStack{
@@ -72,7 +78,9 @@ struct ProfileView: View {
                 }
 
 
-                Text(currentUser.username)
+              //  Text(currentUser.username)
+                
+                Text(currentUserFromAPI.username)
                     .frame(width: 70, alignment: .center)
             }
             

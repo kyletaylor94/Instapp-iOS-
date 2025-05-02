@@ -48,7 +48,10 @@ struct RegisterView: View {
                     
                     AuthButton(void: {
                         //sign up method
-                        Task { await authVM.register(name: name, email: email, password: password, confirmPassword: confirmPassword) }
+                     
+                        let parameters = RegisterRequest(name: name, email: email, password: password, confirmPassword: confirmPassword)
+                        
+                        Task { await authVM.register(parameters: parameters) }
                     }, placeholder: "Sign Up")
                     
                     Spacer()
@@ -57,6 +60,7 @@ struct RegisterView: View {
                         .environment(authVM)
                 }
             }
+            .navigationBarBackButtonHidden()
         }
     }
     @ViewBuilder

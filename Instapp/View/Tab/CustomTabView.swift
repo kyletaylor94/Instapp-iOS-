@@ -18,7 +18,6 @@ enum TabItem: String, CaseIterable, Identifiable {
 }
 
 struct CustomTabView: View {
-  //  @State private var authVM = AuthViewModel()
     @Environment(AuthViewModel.self) var authVM
     
     @State private var apiVM = PostViewModel()

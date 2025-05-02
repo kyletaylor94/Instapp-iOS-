@@ -10,8 +10,8 @@ import Foundation
 protocol AuthInteractor {
     func fetchToken() async throws
     func fetchCurrentUser() async throws -> CurrentUser?
-    func login(email: String, password: String) async throws
-    func register(name: String, email: String, password: String, confirmPassword: String) async throws
+    func login(_ parameters: LoginRequest) async throws
+    func register(_ parameters: RegisterRequest) async throws
     func logout() async throws
     
     func fetchCurrentUserFromAPI() async throws -> User?
@@ -35,13 +35,13 @@ class AuthInteractorImpl: AuthInteractor {
         return try await repository.fetchCurrentUser()
     }
     
-    func login(email: String, password: String) async throws {
-        return try await repository.login(email: email, password: password)
+    func login(_ parameters: LoginRequest) async throws {
+        return try await repository.login(parameters)
     }
     
-    func register(name: String, email: String, password: String, confirmPassword: String) async throws {
+    func register(_ parameters: RegisterRequest) async throws {
         try await fetchToken()
-        return try await repository.register(name: name, email: email, password: password, confirmPassword: confirmPassword)
+        return try await repository.register(parameters)
     }
     
     func logout() async throws {
@@ -54,9 +54,7 @@ class AuthInteractorImpl: AuthInteractor {
     
     func checkLoginStatus() async throws -> (Bool, User?) {
         let user = try await fetchCurrentUserFromAPI()
-        
-        print("CHECKLOGINSTATUS: \(user?.isActive)")
-        
+                
         if ((user?.isActive) != nil) {
             return (true, user)
         } else {

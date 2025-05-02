@@ -32,6 +32,7 @@ enum AuthErrorType: String, Error {
 class AuthViewModel {
     var currentUserFromAPI: User?
     var currentUser: CurrentUser?
+    var isAuthenticated = false
     
     var isLoading = false
     var hasError = false
@@ -52,23 +53,22 @@ class AuthViewModel {
         }
     }
     
-    func login(email: String, password: String) async {
+    
+    func login(parameters: LoginRequest) async {
         do {
-            try await interactor.login(email: email, password: password)
+            try await interactor.login(parameters)
             await fetchCurrentUserFromAPI()
-            print(currentUserFromAPI)
         } catch {
-            print(error.localizedDescription)
+            print(String(describing: error))
         }
     }
     
-    func register(name: String, email: String, password: String, confirmPassword: String) async {
+    func register(parameters: RegisterRequest) async {
         do {
-            try await interactor.register(name: name, email: email, password: password, confirmPassword: confirmPassword)
+            try await interactor.register(parameters)
             await fetchCurrentUserFromAPI()
-            print(currentUserFromAPI)
         } catch {
-            print(error.localizedDescription)
+            print(String(describing: error))
         }
     }
     
@@ -76,6 +76,7 @@ class AuthViewModel {
         do {
             try await interactor.logout()
             self.currentUserFromAPI = nil
+            self.isAuthenticated = false
         } catch {
             print(error.localizedDescription)
         }
@@ -84,6 +85,7 @@ class AuthViewModel {
     func fetchCurrentUserFromAPI() async {
         do {
             self.currentUserFromAPI = try await interactor.fetchCurrentUserFromAPI()
+            self.isAuthenticated = true
         } catch {
             print(error.localizedDescription)
         }
@@ -93,6 +95,7 @@ class AuthViewModel {
         do {
            let (isAuthenticated, user) = try await interactor.checkLoginStatus()
             self.currentUserFromAPI = user
+            self.isAuthenticated = isAuthenticated
         } catch {
             print(error.localizedDescription)
         }

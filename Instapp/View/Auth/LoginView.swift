@@ -37,7 +37,8 @@ struct LoginView: View {
                         
                         AuthButton(void: {
                             //sign in
-                            Task { await authVM.login(email: email, password: password)}
+                            let parameters = LoginRequest(email: email, password: password)
+                            Task { await authVM.login(parameters: parameters) }
                         }, placeholder: "Sign In")
                         
                         Spacer()
@@ -53,6 +54,7 @@ struct LoginView: View {
         VStack{
             HStack{
                 Spacer()
+                
                 Button {
                     //forgot password method
                 } label: {

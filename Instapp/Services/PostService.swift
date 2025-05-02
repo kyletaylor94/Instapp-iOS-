@@ -14,6 +14,6 @@ protocol PostService {
 class PostServiceImpl: PostService {
     
     func fetchPosts() async throws -> [PostModel] {
-        return try await mockPosts
+        return mockPosts
     }
 }

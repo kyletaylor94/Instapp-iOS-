@@ -11,11 +11,11 @@ import UIKit
 
 protocol AuthService {
     func fetchToken() async throws
-    func login(email: String, password: String) async throws
-    func register(name: String, email: String, password: String, confirmPassword: String) async throws
+    func login(_ parameters: LoginRequest) async throws
+    func register(_ parameters: RegisterRequest) async throws
     func logout() async throws
     func fetchCurrentUserFromAPI() async throws -> User
-        
+    
     func fetchCurrentUser() async throws -> CurrentUser
 }
 
@@ -23,20 +23,21 @@ class AuthServiceImpl: AuthService {
     
     func fetchToken() async throws {
         let url = Constants.shared.baseUrl.appendingPathComponent(Constants.shared.fetchDeviceUrl)
+        
         let fakeIDToken = UUID().uuidString
         let device = await UIDevice.current
-        
-        let parameters: [String: Any] = await [
-            "deviceName": device.name,
-            "deviceToken": "apn-token-\(fakeIDToken)",
-            "platform": "ios"
-        ]
+                
+        let parameters = await DeviceRegistrationRequest(
+            deviceName: device.name,
+            deviceToken: "apn-token-\(fakeIDToken)",
+            platform: "ios"
+        )
         
         do {
             let response = try await AF.request(
                 url,
                 method: .post,
-                parameters: parameters,
+                parameters: parameters.toDictionary(),
                 encoding: JSONEncoding.default,
             )
                 .serializingDecodable(TokenResponse.self)
@@ -51,20 +52,15 @@ class AuthServiceImpl: AuthService {
         }
     }
     
-    func login(email: String, password: String) async throws {
+    func login(_ parameters: LoginRequest) async throws {
         let url = Constants.shared.baseUrl.appendingPathComponent(Constants.shared.loginUrl)
         let headers = try await Helpers.shared.getHeaders()
-        
-        let parameters: [String: String] = [
-            "email": email,
-            "password": password
-        ]
         
         do {
             let response = try await AF.request(
                 url,
                 method: .post,
-                parameters: parameters,
+                parameters: parameters.toDictionary(),
                 encoding: JSONEncoding.default,
                 headers: headers
             )
@@ -73,32 +69,26 @@ class AuthServiceImpl: AuthService {
                 .value
             
             print("Login successfully: \(response)")
-
+            
         } catch {
             print("Error in login: \(error)")
             throw error
         }
     }
     
-    func register(name: String, email: String, password: String, confirmPassword: String) async throws {
+    func register(_ parameters: RegisterRequest) async throws {
         let url = Constants.shared.baseUrl.appendingPathComponent(Constants.shared.registerUrl)
         let headers = try await Helpers.shared.getHeaders()
         
-        let parameters: [String: String] = [
-            "name": name,
-            "email": email,
-            "password": password,
-            "confirmPassword": confirmPassword
-        ]
         
         do {
             let response = try await AF.request(
                 url,
                 method: .post,
-                parameters: parameters,
+                parameters: parameters.toDictionary(),
                 encoding: JSONEncoding.default,
                 headers: headers
-            
+                
             )
                 .validate()
                 .serializingString()
@@ -106,7 +96,7 @@ class AuthServiceImpl: AuthService {
             
             print("Register successful: \(response)")
         } catch {
-            print("Error in register: \(error)")
+            print("Error in register: \(String(describing: error))")
             throw error
         }
     }
@@ -133,7 +123,7 @@ class AuthServiceImpl: AuthService {
     }
     
     func fetchCurrentUser() async throws -> CurrentUser {
-        return try await mockCurrentUser[1]
+        return mockCurrentUser[1]
     }
     
     func fetchCurrentUserFromAPI() async throws -> User {
